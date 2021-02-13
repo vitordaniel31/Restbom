@@ -40,7 +40,7 @@
                 <a class="nav-link" href="#">Home</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('saidas')}}#saidas'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
+                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#saidas'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="#saidas">Nova saída</a>
                 </div>
@@ -73,15 +73,15 @@
               <li class="nav-item">
                 <a class="nav-link" href="#redefinir">Redefinir senha</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#registro">Registre-se</a>
-              </li>
             @endif 
             </ul>
             @if(Auth::check())
             <ul class="navbar-nav ml-auto">
               <li class="nav-item cta-btn">
-                <a class="nav-link" href="">Sair</a>
+                <form action="{{route('logout')}}" id="logout" method="POST">
+                  @csrf
+                  <a class="nav-link" onclick="document.getElementById('logout').submit();">Sair</a>
+                </form>
               </li>
             </ul>
             @endif
