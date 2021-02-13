@@ -1,59 +1,117 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.design')
+@section('content')
+    
+    <div class="slider-wrap">
+      <section id="home" class="home-slider owl-carousel">
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
+        <div class="slider-item" style="background-image: url({{asset('foody/img/hero_1.jpg')}});">
+          
+          <div class="container">
+            <div class="row slider-text align-items-center justify-content-center">
+              <div class="col-md-8 text-center col-sm-12 ">
+                <h1 data-aos="fade-up">Enjoy Your Food at Foody</h1>
+                <p class="mb-5" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente et sed quasi.</p>
+                
+              </div>
             </div>
+          </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+        </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+        <div class="slider-item" style="background-image: url({{asset('foody/img/hero_2.jpg')}});">
+          <div class="container">
+            <div class="row slider-text align-items-center justify-content-center">
+              <div class="col-md-8 text-center col-sm-12 ">
+                <h1 data-aos="fade-up">Delecious Food</h1>
+                <p class="mb-5" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente et sed quasi.</p>
+              </div>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
+          </div>
+          
+        </div>
+        </section>
+        
+    <!-- END slider -->
+    </div>  
+    <section id='registro' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
+      <div class="container card">  
+        <div class="row">
+          <div class="col-lg-6 ">
+            <div class="row justify-content-center">
+              <a href="#home"><img width="250px" src="{{asset('images/logo.png')}}" class="img-fluid" alt="Imagem responsiva"></a>
             </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
+          </div>
+          <div class="col-lg-6">
+            <div class="row justify-content-center">
+            <div class="col-md-8 text-center col-sm-12 ">
+                <h1 data-aos="fade-up">Cadastro de funcionário</h1>
+              </div>
             </div>
+            <form action="{{route('register')}}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="name">Nome</label>
+                      <input name="name" type="text" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus class="form-control ">
+                        @error('name')
+                            <div class="alert alert-primary" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                
+                <input type="hidden" name="funcao" value="Administrador">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="name">Email</label>
+                      <input name="email" type="email" id="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control ">
+                        @error('email')
+                            <div class="alert alert-primary" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="tipo_perfil">Perfil</label>
+                      <select name="tipo_perfil" class="form-control browser-default custom-select" id="tipo_perfil" required>
+                        <option value="C">Cozinheiro</option>
+                        <option value="D">Delivery</option>
+                        <option selected value="G">Garçom</option>
+                      </select>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password" autofocus class="form-control ">
+                        @error('password')
+                        <div class="alert alert-primary" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="password_confirm">Confirmar senha</label>
+                        <input type="password" id="password_confirm" name="password_confirmation" required autocomplete="new-password" autofocus class="form-control ">
+                    </div>
+                </div>
+             
+                <div class="row justify-content-center">
+                    <div class="form-group">
+                      <input type="submit" value="Enviar" class="btn btn-primary">
+                    </div>
+                </div>  
+            </form>
+          </div>
+        </div>
+      </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+    </section>
+@endsection

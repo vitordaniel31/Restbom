@@ -35,7 +35,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'tipo_perfil' => 'required|string|in:A,C,D,G,T',
+            'tipo_perfil' => 'required|string|in:C,D,G',
             'password' => 'required|string|confirmed|min:8',
         ]);
 
@@ -44,6 +44,12 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]));*/
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'tipo_perfil' => $request->tipo_perfil,
+            'password' => Hash::make($request->password),
+        ]); 
 
         event(new Registered($user));
 
