@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Str;
 
-$mysql="local_mysql"
+$mysql="local_mysql";
 if (getenv('APP_ENV')!='local') {
     $url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 
