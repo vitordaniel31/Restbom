@@ -46,9 +46,9 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#funcionarios'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
+                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('funcionario.index')}}#funcionarios'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="#registro">Novo funcionário</a>
+                  <a class="dropdown-item" href="{{route('register')}}#registro">Novo funcionário</a>
                 </div>
               </li>
               <li class="nav-item dropdown">

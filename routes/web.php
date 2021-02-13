@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FuncionarioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +22,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+Route::group(['prefix' => 'funcionario'], function(){
+	Route::get('/', [FuncionarioController::class, 'index'])->name('funcionario.index');
+});
