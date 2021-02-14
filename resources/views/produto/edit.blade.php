@@ -30,11 +30,11 @@
           </div>
           
         </div>
-        </section>
-        
+
+      </section>
     <!-- END slider -->
-    </div>  
-    <section id='registro' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
+    </div> 
+<section id='produtos' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
       <div class="container card">  
         <div class="row">
           <div class="col-lg-6 ">
@@ -44,68 +44,51 @@
           </div>
           <div class="col-lg-6">
             <div class="row justify-content-center">
-            <div class="col-md-8 text-center col-sm-12 ">
-                <h1 data-aos="fade-up">Cadastro de funcionário</h1>
-              </div>
+              <h1>Editar produto</h1>
             </div>
-            <form action="{{route('register.store')}}" method="post">
+            <form action="{{route('produto.update', [$produto->id])}}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-12 form-group">
-                      <label for="name">Nome</label>
-                      <input name="name" type="text" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus class="form-control ">
-                        @error('name')
+                      <label for="name">Descrição</label>
+                      <input type="hidden" name="id" value="{{$produto->id}}">
+                      <textarea name="descricao" type="text" id="descricao" required autocomplete="descricao" autofocus class="form-control ">{{$produto->descricao}}</textarea>
+                      @error('descricao')
                             <div class="alert alert-primary" role="alert">
                                 {{ $message }}
                             </div>
-                        @enderror
+                      @enderror
                     </div>
                 </div>
-                
-                <input type="hidden" name="funcao" value="Administrador">
                 <div class="row">
-                    <div class="col-md-12 form-group">
-                      <label for="name">Email</label>
-                      <input name="email" type="email" id="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control ">
-                        @error('email')
+                    <div class="col-md-6 form-group">
+                      <label for="name">Preço</label>
+                      <input name="preco" type="number" min="0" step="0.010" max="999999.99" id="preco" value="{{$produto->preco}}" required autocomplete="preco" autofocus class="form-control ">
+                      @error('preco')
                             <div class="alert alert-primary" role="alert">
                                 {{ $message }}
                             </div>
-                        @enderror
-                    </div>
-                </div>
-                 <div class="row">
-                    <div class="col-md-12 form-group">
-                      <label for="tipo_perfil">Perfil</label>
-                      <select name="tipo_perfil" class="form-control browser-default custom-select" id="tipo_perfil" required>
-                        <option value="C">Cozinheiro</option>
-                        <option value="D">Delivery</option>
-                        <option selected value="G">Garçom</option>
-                      </select>
+                      @enderror
                     </div>
                     
-                </div>
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <label for="password">Senha</label>
-                        <input type="password" id="password" name="password" required autocomplete="current-password" autofocus class="form-control ">
-                        @error('password')
-                        <div class="alert alert-primary" role="alert">
+                        <div class="col-md-6 form-group">
+                          <label for="tipo">Tipo</label>
+                          <select name="tipo" class="form-control" id="tipo" required>
+                            <option value="@if(($produto->tipo)=='C')C @else E @endif">@if (($produto->tipo)=='C') Cozinha @else Estoque @endif</option>
+                            <option value="@if(($produto->tipo)=='C')E @else C @endif">@if (($produto->tipo)=='C') Estoque @else Cozinha @endif</option>          
+                          </select>
+                          @error('tipo')
+                            <div class="alert alert-primary" role="alert">
                                 {{ $message }}
                             </div>
-                        @enderror
-                    </div>
+                          @enderror
+                        </div>
+                    
                 </div>
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                        <label for="password_confirm">Confirmar senha</label>
-                        <input type="password" id="password_confirm" name="password_confirmation" required autocomplete="new-password" autofocus class="form-control ">
-                    </div>
-                </div>
-             
                 <div class="row justify-content-center">
                     <div class="form-group">
-                      <input type="submit" value="Enviar" class="btn btn-primary">
+                      <input type="submit" value="Salvar" class="btn btn-primary">
                     </div>
                 </div>  
             </form>
@@ -114,4 +97,7 @@
       </div>
 
     </section>
+	
+
 @endsection
+

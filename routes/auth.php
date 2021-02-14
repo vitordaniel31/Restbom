@@ -13,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/funcionario/register', [RegisteredUserController::class, 'create'])
                 ->middleware('auth')
                 ->middleware('admin')
-                ->name('register');
+                ->name('register.create');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('guest');
+                ->middleware('auth')
+                ->middleware('admin')
+                ->name('register.store');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')

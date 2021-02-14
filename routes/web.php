@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FuncionarioController;
+use App\Http\Controllers\ProdutoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,4 +27,12 @@ require __DIR__.'/auth.php';
 
 Route::group(['prefix' => 'funcionario', 'middleware' => 'auth'], function(){
 	Route::get('/', [FuncionarioController::class, 'index'])->middleware(['admin'])->name('funcionario.index');
+});
+
+Route::group(['prefix' => 'produto', 'middleware' => 'auth'], function(){
+	Route::get('/', [ProdutoController::class, 'index'])->middleware(['admin'])->name('produto.index');
+	Route::get('/create', [ProdutoController::class, 'create'])->middleware(['admin'])->name('produto.create');
+	Route::post('/', [ProdutoController::class, 'store'])->middleware(['admin'])->name('produto.store');
+	Route::get('/edit/{id}', [ProdutoController::class, 'edit'])->middleware(['admin'])->name('produto.edit');
+	Route::put('/update/{id}', [ProdutoController::class, 'update'])->middleware(['admin'])->name('produto.update');
 });

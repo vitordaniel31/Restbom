@@ -28,7 +28,7 @@
     <header role="banner ">
       <nav class="navbar navbar-expand-md navbar-dark">
         <div class="container">
-          <a class="navbar-brand" href=""><img height="100px" width="100px" src="{{asset('images/logo.png')}}"></a>
+          <a class="navbar-brand" href="{{route('home')}}"><img height="100px" width="100px" src="{{asset('images/logo.png')}}"></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -48,7 +48,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('funcionario.index')}}#funcionarios'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Funcionários</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="{{route('register')}}#registro">Novo funcionário</a>
+                  <a class="dropdown-item" href="{{route('register.create')}}#registro">Novo funcionário</a>
                 </div>
               </li>
               <li class="nav-item dropdown">
@@ -58,9 +58,9 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#produtos'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produtos</a>
+                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('produto.index')}}#produtos'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produtos</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="#produtos">Novo produto</a>
+                  <a class="dropdown-item" href="{{route('produto.create')}}#produtos">Novo produto</a>
                 </div>
               </li>
             @else

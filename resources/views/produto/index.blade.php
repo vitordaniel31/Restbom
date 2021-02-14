@@ -1,6 +1,5 @@
 @extends('layouts.design')
 @section('content')
-    
     <div class="slider-wrap">
       <section id="home" class="home-slider owl-carousel">
 
@@ -34,33 +33,38 @@
       </section>
     <!-- END slider -->
     </div> 
-  <section id='funcionarios' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
+  <section id='produtos' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
       <div class="container">
 
+  
             <div class="row justify-content-center">
-              <h1>Funcionários</h1>
+              <h1>Produtos</h1>
             </div>
           
         <div class="row">
           <table class="table table-hover">
             <thead>
               <tr bgcolor="#F2F2F2">
-                <th>NOME</th>
-                <th>EMAIL</th>
-                <th>PERFIL</th>
+                <th>DESCRIÇÃO</th>
+                <th>TIPO</th>
+                <th>PREÇO (R$)</th>
                 <th>AÇÕES</th>
               </tr>
             </thead>
           <tbody>
-            @foreach ($funcionarios as $funcionario)
-              <tr>
-                <td>{{$funcionario->name}}</td>
-                <td>{{$funcionario->email}}</td>
-                <td>{{$funcionario->tipo_perfil}}</td>
-                <td></td>
-              </tr>
+            <tr>
+            @foreach ($produtos as $produto)
+                <td>{{$produto->descricao}}</td>
+                <td>{{$produto->tipo}}</td>
+                <td>R$ {{$produto->preco}}</td>
+                <td>
+                  <a href="{{route('produto.edit', [$produto->id])}}#produtos"><i style="color: #039be5" class="material-icons">edit</i></a>
+                </td>
+             </tr>
             @endforeach
+          </tr>
         </tbody>
+        <a class="btn btn-primary" href="{{route('produto.create')}}#produtos">Novo produto</a>
         </table>
         </div>
       </div>
