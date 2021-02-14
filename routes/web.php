@@ -15,7 +15,7 @@ use App\Http\Controllers\FuncionarioController;
 
 Route::get('/', function () {
     return view('home');
-})->middleware(['auth']);
+})->middleware(['auth'])->name('home');
 
 Route::get('/dashboard', function () {	
     return view('dashboard');
@@ -23,6 +23,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'funcionario'], function(){
-	Route::get('/', [FuncionarioController::class, 'index'])->name('funcionario.index');
+Route::group(['prefix' => 'funcionario', 'middleware' => 'auth'], function(){
+	Route::get('/', [FuncionarioController::class, 'index'])->middleware(['admin'])->name('funcionario.index');
 });

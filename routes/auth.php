@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/funcionario/register', [RegisteredUserController::class, 'create'])
                 ->middleware('auth')
+                ->middleware('admin')
                 ->name('register');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
