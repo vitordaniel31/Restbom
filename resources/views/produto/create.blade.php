@@ -42,7 +42,7 @@
           </div>
           <div class="col-lg-6">
             <div class="row justify-content-center">
-              <center><h1>Cadastro de produto</h1></center>
+              <center><h1 data-aos="fade-up">Cadastro de produto</h1></center>
             </div>
             <form action="{{route('produto.store')}}" method="post">
                 @csrf

@@ -44,7 +44,7 @@
           </div>
           <div class="col-lg-6">
             <div class="row justify-content-center">
-              <h1>Editar produto</h1>
+              <center><h1 data-aos="fade-up">Editar produto</h1></center>
             </div>
             <form action="{{route('produto.update', [$produto->id])}}" method="POST">
                 @csrf

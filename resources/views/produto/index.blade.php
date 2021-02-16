@@ -56,7 +56,7 @@
             <tr>
             @foreach ($produtos as $produto)
                 <td>{{$produto->descricao}}</td>
-                <td>{{$produto->tipo}}</td>
+                <td>@if(($produto->tipo)=='C') Cozinha @else Estoque @endif</td>
                 <td>R$ {{$produto->preco}}</td>
                 <td>{{$produto->status}}</td>
                 <td>
