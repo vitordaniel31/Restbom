@@ -83,19 +83,6 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="form-group">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="status" id="status" checked value="1">
-                         <label for=status>Status</label>
-                        @error('status')
-                            <div class="alert alert-primary" role="alert">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                      </div>
-                    </div>
-                </div>  
-                <div class="row justify-content-center">
-                    <div class="form-group">
                       <input type="submit" value="Enviar" class="btn btn-primary">
                     </div>
                 </div>  

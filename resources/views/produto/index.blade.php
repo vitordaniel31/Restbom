@@ -68,7 +68,7 @@
                 <td>R$ {{$produto->preco}}</td>
                 <td>@if($produto->trashed())Inativo @else Ativo @endif</td>
                 <td>
-                  @if((!$produto->trashed())
+                  @if(!$produto->trashed())
                   <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('produto.edit', [$produto->id])}}#produtos'"><i style="color: #039be5" class="material-icons">edit</i></button>
                   <form action="{{route('produto.destroy', [$produto->id])}}" method="POST" style="display: inline;">
                       @csrf
@@ -77,7 +77,7 @@
                   </form>
                   @endif
 
-                  @if(($produto->trashed())
+                  @if($produto->trashed())
                   <form action="{{route('produto.restore', [$produto->id])}}" method="POST" style="display: inline;">
                       @csrf
                       @method('PUT')

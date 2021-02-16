@@ -11,13 +11,9 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/funcionario/register', [RegisteredUserController::class, 'create'])
-                ->middleware('auth')
-                ->middleware('admin')
                 ->name('register.create');
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-                ->middleware('auth')
-                ->middleware('admin')
+Route::post('/funcionario/register', [RegisteredUserController::class, 'store'])
                 ->name('register.store');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])

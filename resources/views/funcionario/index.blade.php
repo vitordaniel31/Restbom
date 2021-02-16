@@ -67,13 +67,15 @@
                 <td>{{$funcionario->tipo_perfil}}</td>
                 <td>@if($funcionario->trashed())Inativo @else Ativo @endif</td>
                 <td>
-                  @if(($funcionario->tipo_perfil)!='A' and !$funcionario->trashed())
+                  @if(!$funcionario->trashed())
                   <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('funcionario.edit', [$funcionario->id])}}#registro'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                  @if(($funcionario->tipo_perfil)!='A')
                   <form action="{{route('funcionario.destroy', [$funcionario->id])}}" method="POST" style="display: inline;">
                       @csrf
                       @method('DELETE')
                       <button title="Desativar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">cancel</i></button>
                   </form>
+                  @endif
                   @endif
 
                   @if(($funcionario->tipo_perfil)!='A' and $funcionario->trashed())

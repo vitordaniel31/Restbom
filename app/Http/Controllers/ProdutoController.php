@@ -14,7 +14,7 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        $produtos = Produto::all();
+        $produtos = Produto::withTrashed()->get();
         return view('produto.index')->with('produtos', $produtos);
     }
 
@@ -40,7 +40,6 @@ class ProdutoController extends Controller
             'descricao' => 'required|string|max:255|unique:produtos',
             'preco' => 'required|numeric',
             'tipo' => 'required|string|in:C,E',
-            'status' => 'string|in:1',
         ]);
 
         $produto = Produto::create([
@@ -88,7 +87,6 @@ class ProdutoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'id' => 'exists:produtos,id',
             'descricao' => 'string|max:255|unique:produtos,descricao,' . $id . ',id',
             'preco' => 'numeric',
             'tipo' => 'string|in:C,E',

@@ -39,4 +39,6 @@ Route::group(['prefix' => 'produto', 'middleware' => 'auth'], function(){
 	Route::post('/', [ProdutoController::class, 'store'])->middleware(['admin'])->name('produto.store');
 	Route::get('/edit/{id}', [ProdutoController::class, 'edit'])->middleware(['admin'])->name('produto.edit');
 	Route::put('/update/{id}', [ProdutoController::class, 'update'])->middleware(['admin'])->name('produto.update');
+	Route::delete('/{id}', [ProdutoController::class, 'destroy'])->middleware(['admin'])->name('produto.destroy');
+	Route::put('/{id}', [ProdutoController::class, 'restore'])->middleware(['admin'])->name('produto.restore');
 });
