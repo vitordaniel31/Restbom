@@ -48,6 +48,7 @@
                 <th>NOME</th>
                 <th>EMAIL</th>
                 <th>PERFIL</th>
+                <th>STATUS</th>
                 <th>AÇÕES</th>
               </tr>
             </thead>
@@ -57,7 +58,26 @@
                 <td>{{$funcionario->name}}</td>
                 <td>{{$funcionario->email}}</td>
                 <td>{{$funcionario->tipo_perfil}}</td>
-                <td><a href="{{route('funcionario.edit', [$funcionario->id])}}#registro"><i style="color: #039be5" class="material-icons">edit</i></a></td>
+                <td>@if($funcionario->trashed())Inativo @else Ativo @endif</td>
+                <td><button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('funcionario.edit', [$funcionario->id])}}#registro'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                  @if(($funcionario->tipo_perfil)!='A' and !$funcionario->trashed())
+                  <form action="{{route('funcionario.destroy', [$funcionario->id])}}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button title="Desativar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">cancel</i></button>
+                  </form>
+                  @endif
+
+                  @if(($funcionario->tipo_perfil)!='A' and $funcionario->trashed())
+                  <form action="{{route('funcionario.restore', [$funcionario->id])}}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('PUT')
+                      <button title="Ativar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">check</i></button>
+                  </form>
+                  @endif
+
+
+                </td>
               </tr>
             @endforeach
         </tbody>

@@ -29,6 +29,8 @@ Route::group(['prefix' => 'funcionario', 'middleware' => 'auth'], function(){
 	Route::get('/', [FuncionarioController::class, 'index'])->middleware(['admin'])->name('funcionario.index');
 	Route::get('/edit/{id}', [FuncionarioController::class, 'edit'])->middleware(['admin'])->name('funcionario.edit');
 	Route::put('/update/{id}', [FuncionarioController::class, 'update'])->middleware(['admin'])->name('funcionario.update');
+	Route::delete('/{id}', [FuncionarioController::class, 'destroy'])->middleware(['admin'])->name('funcionario.destroy');
+	Route::put('/{id}', [FuncionarioController::class, 'restore'])->middleware(['admin'])->name('funcionario.restore');
 });
 
 Route::group(['prefix' => 'produto', 'middleware' => 'auth'], function(){

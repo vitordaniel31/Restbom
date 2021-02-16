@@ -14,7 +14,7 @@ class FuncionarioController extends Controller
      */
     public function index()
     {
-        $funcionarios = User::all();
+        $funcionarios = User::withTrashed()->get();
         return view('funcionario.index')->with('funcionarios', $funcionarios);
     }
 
@@ -114,6 +114,25 @@ class FuncionarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return redirect(route('funcionario.index').'#funcionarios');
+        }else{
+            //retornar mensagem de erro para a página index de funcionarios
+            return redirect(route('funcionario.index').'#funcionarios');
+        }
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->where('id', $id);
+        if ($user) {
+            $user->restore();
+            return redirect(route('funcionario.index').'#funcionarios');
+        }else{
+            //retornar mensagem de erro para a página index de funcionarios
+            return redirect(route('funcionario.index').'#funcionarios');
+        }
     }
 }
