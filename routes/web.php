@@ -27,6 +27,8 @@ require __DIR__.'/auth.php';
 
 Route::group(['prefix' => 'funcionario', 'middleware' => 'auth'], function(){
 	Route::get('/', [FuncionarioController::class, 'index'])->middleware(['admin'])->name('funcionario.index');
+	Route::get('/edit/{id}', [FuncionarioController::class, 'edit'])->middleware(['admin'])->name('funcionario.edit');
+	Route::put('/update/{id}', [FuncionarioController::class, 'update'])->middleware(['admin'])->name('funcionario.update');
 });
 
 Route::group(['prefix' => 'produto', 'middleware' => 'auth'], function(){

@@ -101,12 +101,20 @@ class ProdutoController extends Controller
 
         if (!isset($request->status)) $request->status = 0;
 
-        $produto = Produto::find($id)->update([
-            'descricao' => $request->descricao,
-            'preco' => $request->preco,
-            'tipo' => $request->tipo,
-            'status' => $request->status,
-        ]); 
+        $produto = Produto::find($id);
+
+        if ($produto) {
+            $produto->update([
+                'descricao' => $request->descricao,
+                'preco' => $request->preco,
+                'tipo' => $request->tipo,
+                'status' => $request->status,
+            ]); 
+        }else{
+             //retornar mensagem de erro para a página index de produtos
+            return redirect(route('produto.index').'#produtos');
+        }
+
         return redirect(route('produto.index').'#produtos');
     }
 

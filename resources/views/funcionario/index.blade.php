@@ -57,7 +57,7 @@
                 <td>{{$funcionario->name}}</td>
                 <td>{{$funcionario->email}}</td>
                 <td>{{$funcionario->tipo_perfil}}</td>
-                <td></td>
+                <td><a href="{{route('funcionario.edit', [$funcionario->id])}}#registro"><i style="color: #039be5" class="material-icons">edit</i></a></td>
               </tr>
             @endforeach
         </tbody>

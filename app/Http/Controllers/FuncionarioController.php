@@ -58,7 +58,13 @@ class FuncionarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $funcionario = User::find($id);
+        if ($funcionario) {
+            return view('funcionario.edit')->with('funcionario', $funcionario);
+        }else{
+            //retornar mensagem de erro para a página index de funcionarios
+            return redirect(route('funcionario.index').'#registro');
+        }
     }
 
     /**
@@ -70,7 +76,34 @@ class FuncionarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users,email,' . $id . ',id',
+            'tipo_perfil' => 'string|in:C,D,G',
+        ]);
+
+        $user = User::find($id);
+
+        if ($user) {
+            if ($user->tipo_perfil!='A') {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'tipo_perfil' => $request->tipo_perfil,
+                ]); 
+                return redirect(route('funcionario.index').'#funcionarios');
+            }else{
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]); 
+                return redirect(route('funcionario.index').'#funcionarios');
+            }
+            
+        }else{
+            //retornar mensagem de erro para a página index de funcionarios
+            return redirect(route('funcionario.index').'#funcionarios');
+        }
     }
 
     /**

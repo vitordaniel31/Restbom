@@ -58,7 +58,7 @@
                 <td>{{$produto->descricao}}</td>
                 <td>@if(($produto->tipo)=='C') Cozinha @else Estoque @endif</td>
                 <td>R$ {{$produto->preco}}</td>
-                <td>{{$produto->status}}</td>
+                <td>@if(($produto->status)==1)Ativo @else Inativo @endif</td>
                 <td>
                   <a href="{{route('produto.edit', [$produto->id])}}#produtos"><i style="color: #039be5" class="material-icons">edit</i></a>
                 </td>
