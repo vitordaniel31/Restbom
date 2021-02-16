@@ -43,15 +43,12 @@ class ProdutoController extends Controller
             'status' => 'string|in:1',
         ]);
 
-        if (!isset($request->status)) $request->status = 0;
-
         $produto = Produto::create([
             'descricao' => $request->descricao,
             'preco' => $request->preco,
             'tipo' => $request->tipo,
-            'status' => $request->status,
         ]); 
-        return redirect(route('produto.index').'#produtos');
+        return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto registrado com sucesso!');
     }
 
     /**
@@ -77,8 +74,7 @@ class ProdutoController extends Controller
         if ($produto) {
             return view('produto.edit')->with('produto', $produto);
         }else{
-            //retornar mensagem de erro para a página index de produtos
-            return redirect(route('produto.index').'#produtos');
+            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto inativo ou inexistente! Informe um produto ativo para conseguir editar!');
         }
     }
 
@@ -96,10 +92,7 @@ class ProdutoController extends Controller
             'descricao' => 'string|max:255|unique:produtos,descricao,' . $id . ',id',
             'preco' => 'numeric',
             'tipo' => 'string|in:C,E',
-            'status' => 'string|in:1',
         ]);
-
-        if (!isset($request->status)) $request->status = 0;
 
         $produto = Produto::find($id);
 
@@ -108,14 +101,12 @@ class ProdutoController extends Controller
                 'descricao' => $request->descricao,
                 'preco' => $request->preco,
                 'tipo' => $request->tipo,
-                'status' => $request->status,
             ]); 
+            return redirect(route('produto.index').'#produtos')->with('alert-success', 'Os dados do produto foram editados com sucesso!');
         }else{
-             //retornar mensagem de erro para a página index de produtos
-            return redirect(route('produto.index').'#produtos');
+            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto inativo ou inexistente! Informe um produto ativo para conseguir editar!');
         }
 
-        return redirect(route('produto.index').'#produtos');
     }
 
     /**
@@ -126,6 +117,23 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produto = Produto::find($id);
+        if ($produto) {
+            $produto->delete();
+            return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto inativado com sucesso!');
+        }else{
+            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto inativo ou inexistente! Informe um produto ativo para conseguir excluir!');
+        }
+    }
+
+    public function restore($id)
+    {
+        $produto = Produto::onlyTrashed()->where('id', $id);
+        if ($produto) {
+            $produto->restore();
+            return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto ativado com sucesso!');
+        }else{
+            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto ativo ou inexistente! Informe um produto inativo para conseguir ativá-lo!');
+        }
     }
 }

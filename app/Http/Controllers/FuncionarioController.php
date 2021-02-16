@@ -62,8 +62,7 @@ class FuncionarioController extends Controller
         if ($funcionario) {
             return view('funcionario.edit')->with('funcionario', $funcionario);
         }else{
-            //retornar mensagem de erro para a página index de funcionarios
-            return redirect(route('funcionario.index').'#registro');
+            return redirect(route('funcionario.index').'#funcionarios')->with('alert-primary', 'Funcionário inativo ou inexistente! Informe um funcionário ativo para conseguir editar!');
         }
     }
 
@@ -91,18 +90,17 @@ class FuncionarioController extends Controller
                     'email' => $request->email,
                     'tipo_perfil' => $request->tipo_perfil,
                 ]); 
-                return redirect(route('funcionario.index').'#funcionarios');
+                return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Os dados do funcionário foram editados com sucesso!');
             }else{
                 $user->update([
                     'name' => $request->name,
                     'email' => $request->email,
                 ]); 
-                return redirect(route('funcionario.index').'#funcionarios');
+                return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Os dados do funcionário foram editados com sucesso!');
             }
             
         }else{
-            //retornar mensagem de erro para a página index de funcionarios
-            return redirect(route('funcionario.index').'#funcionarios');
+            return redirect(route('funcionario.index').'#funcionarios')->with('alert-primary', 'Funcionário inativo ou inexistente! Informe um funcionário ativo para conseguir editar!');
         }
     }
 
@@ -117,10 +115,9 @@ class FuncionarioController extends Controller
         $user = User::find($id);
         if ($user) {
             $user->delete();
-            return redirect(route('funcionario.index').'#funcionarios');
+            return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Funcionário inativado com sucesso!');
         }else{
-            //retornar mensagem de erro para a página index de funcionarios
-            return redirect(route('funcionario.index').'#funcionarios');
+            return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário inativo ou inexistente! Informe um funcionário ativo para conseguir excluir!');
         }
     }
 
@@ -129,10 +126,9 @@ class FuncionarioController extends Controller
         $user = User::onlyTrashed()->where('id', $id);
         if ($user) {
             $user->restore();
-            return redirect(route('funcionario.index').'#funcionarios');
+            return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Funcionário ativado com sucesso!');
         }else{
-            //retornar mensagem de erro para a página index de funcionarios
-            return redirect(route('funcionario.index').'#funcionarios');
+            return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário ativo ou inexistente! Informe um funcionário inativo para conseguir ativá-lo!');
         }
     }
 }

@@ -37,9 +37,17 @@
       <div class="container">
 
   
-            <div class="row justify-content-center">
-              <h1>Produtos</h1>
-            </div>
+      <div class="row justify-content-center">
+        <h1>Produtos</h1>
+      </div>
+       
+      @foreach (['primary', 'success'] as $msg)
+        @if(Session::has('alert-' . $msg))
+          <div class="alert alert-{{ $msg }}" role="alert">
+            {{ Session::get('alert-' . $msg) }}
+          </div>
+        @endif
+      @endforeach
           
         <div class="row">
           <table class="table table-hover">
@@ -58,9 +66,25 @@
                 <td>{{$produto->descricao}}</td>
                 <td>@if(($produto->tipo)=='C') Cozinha @else Estoque @endif</td>
                 <td>R$ {{$produto->preco}}</td>
-                <td>@if(($produto->status)==1)Ativo @else Inativo @endif</td>
+                <td>@if($produto->trashed())Inativo @else Ativo @endif</td>
                 <td>
-                  <a href="{{route('produto.edit', [$produto->id])}}#produtos"><i style="color: #039be5" class="material-icons">edit</i></a>
+                  @if((!$produto->trashed())
+                  <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('produto.edit', [$produto->id])}}#produtos'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                  <form action="{{route('produto.destroy', [$produto->id])}}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('DELETE')
+                      <button title="Desativar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">cancel</i></button>
+                  </form>
+                  @endif
+
+                  @if(($produto->trashed())
+                  <form action="{{route('produto.restore', [$produto->id])}}" method="POST" style="display: inline;">
+                      @csrf
+                      @method('PUT')
+                      <button title="Ativar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">check</i></button>
+                  </form>
+                  @endif
+
                 </td>
              </tr>
             @endforeach

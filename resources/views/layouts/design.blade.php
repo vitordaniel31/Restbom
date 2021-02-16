@@ -1,4 +1,4 @@
-<!sDOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Restbom</title>

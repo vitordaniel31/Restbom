@@ -53,6 +53,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        return redirect(route('funcionario.index').'#funcionarios');
+        return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Funcionário registrado com sucesso!');
     }
 }

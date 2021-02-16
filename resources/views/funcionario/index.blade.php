@@ -37,10 +37,17 @@
   <section id='funcionarios' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
       <div class="container">
 
-            <div class="row justify-content-center">
-              <h1>Funcionários</h1>
+        <div class="row justify-content-center">
+          <h1>Funcionários</h1>
+        </div>
+
+        @foreach (['primary', 'success'] as $msg)
+          @if(Session::has('alert-' . $msg))
+            <div class="alert alert-{{ $msg }}" role="alert">
+              {{ Session::get('alert-' . $msg) }}
             </div>
-          
+          @endif
+        @endforeach
         <div class="row">
           <table class="table table-hover">
             <thead>
@@ -59,8 +66,9 @@
                 <td>{{$funcionario->email}}</td>
                 <td>{{$funcionario->tipo_perfil}}</td>
                 <td>@if($funcionario->trashed())Inativo @else Ativo @endif</td>
-                <td><button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('funcionario.edit', [$funcionario->id])}}#registro'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                <td>
                   @if(($funcionario->tipo_perfil)!='A' and !$funcionario->trashed())
+                  <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('funcionario.edit', [$funcionario->id])}}#registro'"><i style="color: #039be5" class="material-icons">edit</i></button>
                   <form action="{{route('funcionario.destroy', [$funcionario->id])}}" method="POST" style="display: inline;">
                       @csrf
                       @method('DELETE')
@@ -75,8 +83,6 @@
                       <button title="Ativar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">check</i></button>
                   </form>
                   @endif
-
-
                 </td>
               </tr>
             @endforeach
