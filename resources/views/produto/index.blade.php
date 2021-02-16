@@ -48,6 +48,7 @@
                 <th>DESCRIÇÃO</th>
                 <th>TIPO</th>
                 <th>PREÇO (R$)</th>
+                <th>STATUS</th>
                 <th>AÇÕES</th>
               </tr>
             </thead>
@@ -57,6 +58,7 @@
                 <td>{{$produto->descricao}}</td>
                 <td>{{$produto->tipo}}</td>
                 <td>R$ {{$produto->preco}}</td>
+                <td>{{$produto->status}}</td>
                 <td>
                   <a href="{{route('produto.edit', [$produto->id])}}#produtos"><i style="color: #039be5" class="material-icons">edit</i></a>
                 </td>

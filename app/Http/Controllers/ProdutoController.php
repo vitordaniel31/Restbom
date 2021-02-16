@@ -40,12 +40,16 @@ class ProdutoController extends Controller
             'descricao' => 'required|string|max:255|unique:produtos',
             'preco' => 'required|numeric',
             'tipo' => 'required|string|in:C,E',
+            'status' => 'string|in:1',
         ]);
+
+        if (!isset($request->status)) $request->status = 0;
 
         $produto = Produto::create([
             'descricao' => $request->descricao,
             'preco' => $request->preco,
             'tipo' => $request->tipo,
+            'status' => $request->status,
         ]); 
         return redirect(route('produto.index').'#produtos');
     }
@@ -92,12 +96,16 @@ class ProdutoController extends Controller
             'descricao' => 'string|max:255|unique:produtos,descricao,' . $id . ',id',
             'preco' => 'numeric',
             'tipo' => 'string|in:C,E',
+            'status' => 'string|in:1',
         ]);
+
+        if (!isset($request->status)) $request->status = 0;
 
         $produto = Produto::find($id)->update([
             'descricao' => $request->descricao,
             'preco' => $request->preco,
             'tipo' => $request->tipo,
+            'status' => $request->status,
         ]); 
         return redirect(route('produto.index').'#produtos');
     }

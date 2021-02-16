@@ -37,7 +37,7 @@
             <ul class="navbar-nav ml-auto pl-lg-5 pl-0">
               @if(Auth::check())
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#saidas'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>

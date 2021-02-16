@@ -18,6 +18,7 @@ class CreateProdutosTable extends Migration
             $table->string('descricao', 255);
             $table->decimal('preco', 8, 2);
             $table->char('tipo', 1);
+            $table->boolean('status')->default(0);
             $table->timestamps();
         });
     }
