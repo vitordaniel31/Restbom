@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{asset('foody/css/aos.css')}}">
 
     <link rel="stylesheet" href="{{asset('foody/css/magnific-popup.css')}}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('/images/favicon.ico') }}">
 
-    <link rel="icon" href="{{asset('/images/favicon.ico') }}" type="image/x-icon"/>
     <link rel="stylesheet" href="{{asset('foody/fonts/ionicons/css/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('foody/fonts/fontawesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('foody/fonts/flaticon/font/flaticon.css')}}">
