@@ -89,6 +89,7 @@
               </tr>
             @endforeach
         </tbody>
+        <a class="btn btn-primary" href="{{route('register.create')}}#registro">Novo funcionário</a>
         </table>
         </div>
       </div>
