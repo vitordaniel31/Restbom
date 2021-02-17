@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Produto;
+use App\Models\Estoque;
 
 class ProdutoController extends Controller
 {
@@ -46,7 +47,14 @@ class ProdutoController extends Controller
             'descricao' => $request->descricao,
             'preco' => $request->preco,
             'tipo' => $request->tipo,
-        ]); 
+        ]);
+
+        if ($request->tipo == 'E') {
+            $estoque = Estoque::create([
+                'id_produto' => $produto->id,
+                'quantidade' => 0,
+            ]); 
+         } 
         return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto registrado com sucesso!');
     }
 
@@ -95,11 +103,26 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
 
         if ($produto) {
+            $tipo = $produto->tipo;
             $produto->update([
                 'descricao' => $request->descricao,
                 'preco' => $request->preco,
                 'tipo' => $request->tipo,
             ]); 
+            if ($tipo=='C' and $request->tipo=='E') {
+                $estoque = Estoque::withTrashed()->where('id_produto', $id)->first();
+                if (!$estoque) {
+                    $estoque = Estoque::create([
+                        'id_produto' => $produto->id,
+                        'quantidade' => 0,
+                    ]); 
+                }elseif($estoque->trashed()){
+                    $estoque->restore();
+                }
+            }elseif($tipo=='E' and $request->tipo=='C'){
+                $estoque = Estoque::where('id_produto', $id);
+                $estoque->delete();
+            }
             return redirect(route('produto.index').'#produtos')->with('alert-success', 'Os dados do produto foram editados com sucesso!');
         }else{
             return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto inativo ou inexistente! Informe um produto ativo para conseguir editar!');
@@ -117,6 +140,8 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
         if ($produto) {
+            $estoque = Estoque::where('id_produto', $id);
+            $estoque->delete();
             $produto->delete();
             return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto inativado com sucesso!');
         }else{
@@ -128,6 +153,8 @@ class ProdutoController extends Controller
     {
         $produto = Produto::onlyTrashed()->where('id', $id);
         if ($produto) {
+            $estoque = Estoque::onlyTrashed()->where('id_produto', $id);
+            $estoque->restore();
             $produto->restore();
             return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto ativado com sucesso!');
         }else{

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\EstoqueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +42,9 @@ Route::group(['prefix' => 'produto', 'middleware' => 'auth'], function(){
 	Route::put('/update/{id}', [ProdutoController::class, 'update'])->middleware(['admin'])->name('produto.update');
 	Route::delete('/{id}', [ProdutoController::class, 'destroy'])->middleware(['admin'])->name('produto.destroy');
 	Route::put('/{id}', [ProdutoController::class, 'restore'])->middleware(['admin'])->name('produto.restore');
+});
+
+Route::group(['prefix' => 'estoque', 'middleware' => ['auth', 'admin']], function(){
+	Route::get('/edit/{id}', [EstoqueController::class, 'edit'])->name('estoque.edit');
+	Route::put('/update/{id}', [EstoqueController::class, 'update'])->name('estoque.update');
 });

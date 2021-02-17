@@ -70,6 +70,9 @@
                 <td>
                   @if(!$produto->trashed())
                   <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('produto.edit', [$produto->id])}}#produtos'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                  @if($produto->tipo=='E')
+                  <button title="Estoque" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('estoque.edit', [$produto->id])}}#estoque'"><i style="color: #039be5" class="material-icons">input</i></button>
+                  @endif
                   <form action="{{route('produto.destroy', [$produto->id])}}" method="POST" style="display: inline;">
                       @csrf
                       @method('DELETE')

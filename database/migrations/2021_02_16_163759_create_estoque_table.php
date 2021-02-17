@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProdutosTable extends Migration
+class CreateEstoqueTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::create('produtos', function (Blueprint $table) {
+        Schema::create('estoque', function (Blueprint $table) {
             $table->id();
-            $table->text('descricao');
-            $table->decimal('preco', 8, 2);
-            $table->char('tipo', 1);
+            $table->unsignedBigInteger('id_produto')->unique();
+            $table->foreign('id_produto')->references('id')->on('produtos');
+            $table->integer('quantidade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ class CreateProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('estoque');
     }
 }
