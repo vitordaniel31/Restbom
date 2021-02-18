@@ -64,12 +64,12 @@
               <tr>
                 <td>{{$funcionario->name}}</td>
                 <td>{{$funcionario->email}}</td>
-                <td>{{$funcionario->tipo_perfil}}</td>
+                <td>@if($funcionario->tipo_perfil==1)Administrador @elseif($funcionario->tipo_perfil==2)Cozinheiro @elseif($funcionario->tipo_perfil==3)Delivery @elseif($funcionario->tipo_perfil==4)Garçom @endif</td>
                 <td>@if($funcionario->trashed())Inativo @else Ativo @endif</td>
                 <td>
                   @if(!$funcionario->trashed())
                   <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('funcionario.edit', [$funcionario->id])}}#registro'"><i style="color: #039be5" class="material-icons">edit</i></button>
-                  @if(($funcionario->tipo_perfil)!='A')
+                  @if($funcionario->tipo_perfil!='A')
                   <form action="{{route('funcionario.destroy', [$funcionario->id])}}" method="POST" style="display: inline;">
                       @csrf
                       @method('DELETE')

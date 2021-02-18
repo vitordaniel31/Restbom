@@ -64,7 +64,7 @@
             <tr>
             @foreach ($produtos as $produto)
                 <td>{{$produto->descricao}}</td>
-                <td>@if(($produto->tipo)=='C') Cozinha @else Estoque @endif</td>
+                <td>@if($produto->tipo==1) Cozinha @elseif($produto->tipo==2) Estoque @endif</td>
                 <td>R$ {{$produto->preco}}</td>
                 <td>@if($produto->trashed())Inativo @else Ativo @endif</td>
                 <td>

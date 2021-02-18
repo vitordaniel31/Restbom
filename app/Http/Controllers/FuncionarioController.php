@@ -78,13 +78,13 @@ class FuncionarioController extends Controller
         $request->validate([
             'name' => 'string|max:255',
             'email' => 'string|email|max:255|unique:users,email,' . $id . ',id',
-            'tipo_perfil' => 'string|in:C,D,G',
+            'tipo_perfil' => 'integer|in:2,3,4',
         ]);
 
         $user = User::find($id);
 
         if ($user) {
-            if ($user->tipo_perfil!='A') {
+            if ($user->tipo_perfil!=1) {
                 $user->update([
                     'name' => $request->name,
                     'email' => $request->email,
@@ -114,8 +114,10 @@ class FuncionarioController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $user->delete();
-            return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Funcionário inativado com sucesso!');
+            if ($user->tipo_perfil!=1) {
+                $user->delete();
+                return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Funcionário inativado com sucesso!');
+            }else return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário é um administrador e não pode ser excluído!');
         }else{
             return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário inativo ou inexistente! Informe um funcionário ativo para conseguir excluir!');
         }

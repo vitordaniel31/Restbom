@@ -74,8 +74,8 @@
                         <div class="col-md-6 form-group">
                           <label for="tipo">Tipo</label>
                           <select name="tipo" class="form-control" id="tipo" required>
-                            <option value="C" @if(($produto->tipo)=='C')selected @endif>Cozinha</option>
-                            <option value="E" @if(($produto->tipo)=='E')selected @endif>Estoque</option>          
+                            <option value="1" @if(($produto->tipo)==1)selected @endif>Cozinha</option>
+                            <option value="2" @if(($produto->tipo)==2)selected @endif>Estoque</option>          
                           </select>
                           @error('tipo')
                             <div class="alert alert-primary" role="alert">

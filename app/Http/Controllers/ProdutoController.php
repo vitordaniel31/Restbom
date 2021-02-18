@@ -40,7 +40,7 @@ class ProdutoController extends Controller
         $request->validate([
             'descricao' => 'required|string|max:255|unique:produtos',
             'preco' => 'required|numeric',
-            'tipo' => 'required|string|in:C,E',
+            'tipo' => 'required|integer|in:1,2',
         ]);
 
         $produto = Produto::create([
@@ -49,7 +49,7 @@ class ProdutoController extends Controller
             'tipo' => $request->tipo,
         ]);
 
-        if ($request->tipo == 'E') {
+        if ($request->tipo == 2) {
             $estoque = Estoque::create([
                 'id_produto' => $produto->id,
                 'quantidade' => 0,
@@ -97,7 +97,7 @@ class ProdutoController extends Controller
         $request->validate([
             'descricao' => 'string|max:255|unique:produtos,descricao,' . $id . ',id',
             'preco' => 'numeric',
-            'tipo' => 'string|in:C,E',
+            'tipo' => 'integer|in:1,2',
         ]);
 
         $produto = Produto::find($id);
@@ -109,7 +109,7 @@ class ProdutoController extends Controller
                 'preco' => $request->preco,
                 'tipo' => $request->tipo,
             ]); 
-            if ($tipo=='C' and $request->tipo=='E') {
+            if ($tipo==1 and $request->tipo==2) {
                 $estoque = Estoque::withTrashed()->where('id_produto', $id)->first();
                 if (!$estoque) {
                     $estoque = Estoque::create([
@@ -119,7 +119,7 @@ class ProdutoController extends Controller
                 }elseif($estoque->trashed()){
                     $estoque->restore();
                 }
-            }elseif($tipo=='E' and $request->tipo=='C'){
+            }elseif($tipo==2 and $request->tipo==1){
                 $estoque = Estoque::where('id_produto', $id);
                 $estoque->delete();
             }
@@ -140,8 +140,10 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
         if ($produto) {
-            $estoque = Estoque::where('id_produto', $id);
-            $estoque->delete();
+            if ($produto->tipo_perfil == 2) {
+                $estoque = Estoque::where('id_produto', $id);
+                $estoque->delete();
+            }
             $produto->delete();
             return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto inativado com sucesso!');
         }else{

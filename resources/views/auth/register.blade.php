@@ -78,9 +78,9 @@
                     <div class="col-md-12 form-group">
                       <label for="tipo_perfil">Perfil</label>
                       <select name="tipo_perfil" class="form-control browser-default custom-select" id="tipo_perfil" required>
-                        <option value="C">Cozinheiro</option>
-                        <option value="D">Delivery</option>
-                        <option selected value="G">Garçom</option>
+                        <option value="2">Cozinheiro</option>
+                        <option value="3">Delivery</option>
+                        <option selected value="4">Garçom</option>
                       </select>
                     </div>
                     

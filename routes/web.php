@@ -26,22 +26,22 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'funcionario', 'middleware' => 'auth'], function(){
-	Route::get('/', [FuncionarioController::class, 'index'])->middleware(['admin'])->name('funcionario.index');
-	Route::get('/edit/{id}', [FuncionarioController::class, 'edit'])->middleware(['admin'])->name('funcionario.edit');
-	Route::put('/update/{id}', [FuncionarioController::class, 'update'])->middleware(['admin'])->name('funcionario.update');
-	Route::delete('/{id}', [FuncionarioController::class, 'destroy'])->middleware(['admin'])->name('funcionario.destroy');
-	Route::put('/{id}', [FuncionarioController::class, 'restore'])->middleware(['admin'])->name('funcionario.restore');
+Route::group(['prefix' => 'funcionario', 'middleware' => ['auth', 'admin']], function(){
+	Route::get('/', [FuncionarioController::class, 'index'])->name('funcionario.index');
+	Route::get('/edit/{id}', [FuncionarioController::class, 'edit'])->name('funcionario.edit');
+	Route::put('/update/{id}', [FuncionarioController::class, 'update'])->name('funcionario.update');
+	Route::delete('/{id}', [FuncionarioController::class, 'destroy'])->name('funcionario.destroy');
+	Route::put('/{id}', [FuncionarioController::class, 'restore'])->name('funcionario.restore');
 });
 
-Route::group(['prefix' => 'produto', 'middleware' => 'auth'], function(){
-	Route::get('/', [ProdutoController::class, 'index'])->middleware(['admin'])->name('produto.index');
-	Route::get('/create', [ProdutoController::class, 'create'])->middleware(['admin'])->name('produto.create');
-	Route::post('/', [ProdutoController::class, 'store'])->middleware(['admin'])->name('produto.store');
-	Route::get('/edit/{id}', [ProdutoController::class, 'edit'])->middleware(['admin'])->name('produto.edit');
-	Route::put('/update/{id}', [ProdutoController::class, 'update'])->middleware(['admin'])->name('produto.update');
-	Route::delete('/{id}', [ProdutoController::class, 'destroy'])->middleware(['admin'])->name('produto.destroy');
-	Route::put('/{id}', [ProdutoController::class, 'restore'])->middleware(['admin'])->name('produto.restore');
+Route::group(['prefix' => 'produto', 'middleware' => ['auth', 'admin']], function(){
+	Route::get('/', [ProdutoController::class, 'index'])->name('produto.index');
+	Route::get('/create', [ProdutoController::class, 'create'])->name('produto.create');
+	Route::post('/', [ProdutoController::class, 'store'])->name('produto.store');
+	Route::get('/edit/{id}', [ProdutoController::class, 'edit'])->name('produto.edit');
+	Route::put('/update/{id}', [ProdutoController::class, 'update'])->name('produto.update');
+	Route::delete('/{id}', [ProdutoController::class, 'destroy'])->name('produto.destroy');
+	Route::put('/{id}', [ProdutoController::class, 'restore'])->name('produto.restore');
 });
 
 Route::group(['prefix' => 'estoque', 'middleware' => ['auth', 'admin']], function(){

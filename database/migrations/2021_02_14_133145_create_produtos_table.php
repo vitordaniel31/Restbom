@@ -17,7 +17,7 @@ class CreateProdutosTable extends Migration
             $table->id();
             $table->text('descricao');
             $table->decimal('preco', 8, 2);
-            $table->char('tipo', 1);
+            $table->tinyInteger('tipo');
             $table->timestamps();
             $table->softDeletes();
         });

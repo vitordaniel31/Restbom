@@ -80,9 +80,9 @@
                     <div class="col-md-12 form-group">
                       <label for="tipo_perfil">Perfil</label>
                       <select name="tipo_perfil" class="form-control browser-default custom-select" id="tipo_perfil" required>
-                        <option value="C" @if(($funcionario->tipo_perfil)=='C')selected @endif>Cozinheiro</option>
-                        <option value="D" @if(($funcionario->tipo_perfil)=='D')selected @endif>Delivery</option>
-                        <option value="G" @if(($funcionario->tipo_perfil)=='G')selected @endif>Garçom</option>
+                        <option value="2" @if(($funcionario->tipo_perfil)==2)selected @endif>Cozinheiro</option>
+                        <option value="3" @if(($funcionario->tipo_perfil)==3)selected @endif>Delivery</option>
+                        <option value="4" @if(($funcionario->tipo_perfil)==4)selected @endif>Garçom</option>
                       </select>
                     </div>
                 </div>

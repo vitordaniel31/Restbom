@@ -61,8 +61,8 @@
                   <div class="col-md-6 form-group">
                     <label for="tipo">Tipo</label>
                     <select name="tipo" class="form-control browser-default custom-select" id="tipo" required>
-                      <option value="C">Cozinha</option>
-                      <option value="E">Estoque</option>
+                      <option value="1">Cozinha</option>
+                      <option value="2">Estoque</option>
                     </select>
                     @error('tipo')
                             <div class="alert alert-primary" role="alert">
