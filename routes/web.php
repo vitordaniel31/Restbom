@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\EstoqueController;
+use App\Http\Controllers\DespesaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +49,10 @@ Route::group(['prefix' => 'produto', 'middleware' => ['auth', 'admin']], functio
 Route::group(['prefix' => 'estoque', 'middleware' => ['auth', 'admin']], function(){
 	Route::get('/edit/{id}', [EstoqueController::class, 'edit'])->name('estoque.edit');
 	Route::put('/update/{id}', [EstoqueController::class, 'update'])->name('estoque.update');
+});
+
+Route::group(['prefix' => 'financeiro', 'middleware' => ['auth', 'admin']], function(){
+	//Route::get('/', [DespesaController::class, 'index'])->name('produto.index');
+	Route::get('/despesa/create', [DespesaController::class, 'create'])->name('financeiro.despesa.create');
+	Route::post('/despesa', [DespesaController::class, 'store'])->name('financeiro.despesa.store');
 });

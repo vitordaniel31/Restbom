@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Despesa;
 
-class DespesaController extends Controller
+class FormaPagamentoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,7 +23,7 @@ class DespesaController extends Controller
      */
     public function create()
     {
-        return view('financeiro.despesa.create');
+        //
     }
 
     /**
@@ -35,19 +34,7 @@ class DespesaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'descricao' => 'required|string|max:255|unique:produtos',
-            'valor' => 'required|numeric',
-            'data' => 'required|date',
-        ]);
-
-        $produto = Despesa::create([
-            'descricao' => $request->descricao,
-            'valor' => $request->valor,
-            'data' => $request->data,
-        ]);
-
-        return redirect(route('home').'#despesas')->with('alert-success', 'Despesa registrada com sucesso!');
+        //
     }
 
     /**

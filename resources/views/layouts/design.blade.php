@@ -40,9 +40,9 @@
                 <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#saidas'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
+                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="#saidas">Nova saída</a>
+                  <a class="dropdown-item" href="{{route('financeiro.despesa.create')}}#saidas">Nova despesa</a>
                 </div>
               </li>
               <li class="nav-item dropdown">

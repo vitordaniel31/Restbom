@@ -19,7 +19,7 @@ class CreatePedidosTable extends Migration
             $table->integer('status');
             $table->string('mesa');
             $table->boolean('delivery');
-            $table->string('token');
+            $table->rememberToken('token');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();

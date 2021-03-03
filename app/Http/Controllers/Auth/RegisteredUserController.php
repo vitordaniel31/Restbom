@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:users,name,NULL,id,deleted_at,NULL',
             'email' => 'required|string|email|max:255|unique:users',
             'tipo_perfil' => 'required|integer|in:2,3,4',
             'password' => 'required|string|confirmed|min:8',

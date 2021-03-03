@@ -18,7 +18,7 @@ class AdminVerify
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
-            if (Auth::user()->tipo_perfil != 'A') {
+            if (Auth::user()->tipo_perfil != 1) {
                 return redirect(RouteServiceProvider::HOME);
             }
         }
