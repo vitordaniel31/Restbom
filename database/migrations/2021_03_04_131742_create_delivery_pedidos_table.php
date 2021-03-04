@@ -15,9 +15,9 @@ class CreateDeliveryPedidosTable extends Migration
     {
         Schema::create('delivery_pedidos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_delivery')->nullable();
+            $table->unsignedBigInteger('id_delivery');
             $table->foreign('id_delivery')->references('id')->on('delivery'); 
-            $table->unsignedBigInteger('id_pedido')->nullable();
+            $table->unsignedBigInteger('id_pedido')->unique();
             $table->foreign('id_pedido')->references('id')->on('pedidos'); 
             $table->timestamps();
         });
