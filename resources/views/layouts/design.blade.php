@@ -53,9 +53,9 @@
                 </div>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#pedidos'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pedidos</a>
+                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('pedido.index')}}#pedidos'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pedidos</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="#pedidos">Novo pedido</a>
+                  <a class="dropdown-item" href="{{route('pedido.create')}}#pedidos">Novo pedido</a>
                 </div>
               </li>
               <li class="nav-item dropdown">

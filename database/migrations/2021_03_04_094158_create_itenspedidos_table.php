@@ -19,7 +19,7 @@ class CreateItenspedidosTable extends Migration
             $table->foreign('id_produto')->references('id')->on('produtos');
             $table->unsignedBigInteger('id_pedido');
             $table->foreign('id_pedido')->references('id')->on('pedidos');
-            $table->string('descricao');
+            $table->string('observacao')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });

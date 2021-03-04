@@ -5,6 +5,7 @@ use App\Http\Controllers\FuncionarioController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\DespesaController;
+use App\Http\Controllers\PedidoController;
 
 
 /*
@@ -58,4 +59,13 @@ Route::group(['prefix' => 'financeiro', 'middleware' => ['auth', 'admin']], func
 	Route::get('/despesa/edit/{id}', [DespesaController::class, 'edit'])->name('financeiro.despesa.edit');
 	Route::put('/despesa/update/{id}', [DespesaController::class, 'update'])->name('financeiro.despesa.update');
 	Route::delete('/despesa/{id}', [DespesaController::class, 'destroy'])->name('financeiro.despesa.destroy');
+});
+
+Route::group(['prefix' => 'pedido', 'middleware' => ['auth']], function(){
+	Route::get('/', [PedidoController::class, 'index'])->name('pedido.index');
+	Route::get('/create', [PedidoController::class, 'create'])->name('pedido.create');
+	Route::post('/', [PedidoController::class, 'store'])->name('pedido.store');
+	Route::get('/despesa/edit/{id}', [DespesaController::class, 'edit'])->name('pedido.despesa.edit');
+	Route::put('/despesa/update/{id}', [DespesaController::class, 'update'])->name('pedido.despesa.update');
+	Route::delete('/despesa/{id}', [DespesaController::class, 'destroy'])->name('pedido.despesa.destroy');
 });

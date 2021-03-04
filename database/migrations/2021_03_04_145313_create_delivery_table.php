@@ -16,10 +16,12 @@ class CreateDeliveryTable extends Migration
         Schema::create('delivery', function (Blueprint $table) {
             $table->id();
             $table->string('endereco');
-            $table->string('observacao');
-            $table->tinyInteger('status');
-            $table->unsignedBigInteger('id_user');
+            $table->string('observacao')->nullable();
+            $table->tinyInteger('status')->default(0);
+            $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_user')->references('id')->on('users');
+            $table->unsignedBigInteger('id_pedido')->unique();
+            $table->foreign('id_pedido')->references('id')->on('pedidos'); 
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Pedido extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'pedidos';
 
@@ -16,7 +16,6 @@ class Pedido extends Model
         'cliente',
         'status',
         'mesa',
-        'delivery',
         'token',
         'id_user',
     ];
