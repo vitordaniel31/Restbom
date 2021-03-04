@@ -16,10 +16,8 @@ class CreatePedidosTable extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->string('cliente');
-            $table->integer('status');
+            $table->tinyInteger('status');
             $table->string('mesa')->nullable();
-            $table->unsignedBigInteger('id_delivery')->nullable();
-            $table->foreign('id_delivery')->references('id')->on('delivery');
             $table->rememberToken('token');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');

@@ -15,6 +15,11 @@ class CreateDeliveryTable extends Migration
     {
         Schema::create('delivery', function (Blueprint $table) {
             $table->id();
+            $table->string('endereco');
+            $table->string('observacao');
+            $table->tinyInteger('status');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();
         });
     }
