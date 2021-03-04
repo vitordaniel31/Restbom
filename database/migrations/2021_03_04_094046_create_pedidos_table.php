@@ -17,8 +17,9 @@ class CreatePedidosTable extends Migration
             $table->id();
             $table->string('cliente');
             $table->integer('status');
-            $table->string('mesa');
-            $table->boolean('delivery');
+            $table->string('mesa')->nullable();
+            $table->unsignedBigInteger('id_delivery')->nullable();
+            $table->foreign('id_delivery')->references('id')->on('delivery');
             $table->rememberToken('token');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
