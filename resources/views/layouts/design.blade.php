@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('foody/fonts/ionicons/css/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('foody/fonts/fontawesome/css/font-awesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('foody/fonts/flaticon/font/flaticon.css')}}">
+    <link href="{{asset('foody/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="{{asset('foody/css/style.css')}}">
@@ -40,7 +41,7 @@
                 <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
+                <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('financeiro.index')}}#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="{{route('financeiro.despesa.create')}}#saidas">Nova despesa</a>
                 </div>
@@ -158,6 +159,12 @@
     
 
     <script src="{{asset('foody/js/main.js')}}"></script>
+
+    <script src="{{asset('foody/datatables/jquery.dataTables.js')}}"></script>
+    <script src="{{asset('foody/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{asset('foody/datatables/datatables-demo.js')}}"></script>
 
 </body>
 </html>

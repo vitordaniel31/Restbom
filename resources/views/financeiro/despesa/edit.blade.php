@@ -1,4 +1,4 @@
-@extends('design')
+@extends('layouts.design')
 @section('content')
     
     <div class="slider-wrap">
@@ -44,25 +44,25 @@
           </div>
           <div class="col-lg-6">
             <div class="row justify-content-center">
-              <h1>Editar saída</h1>
+              <h1>Editar despesa</h1>
             </div>
-            <form action="{{route('editSaida')}}" method="post">
+            <form action="{{route('financeiro.despesa.update', [$despesa->id])}}" method="post">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-12 form-group">
-                      <input type="hidden" name="sai_codigo" value="{{$resultado->sai_codigo}}">
                       <label for="descricao">Descrição</label>
-                      <textarea name="sai_descricao" type="text" id="descricao" required autocomplete="descricao" autofocus class="form-control ">{{$resultado->sai_descricao}}</textarea>
+                      <textarea name="descricao" type="text" id="descricao" required autocomplete="descricao" autofocus class="form-control ">{{$despesa->descricao}}</textarea>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
                       <label for="valor">Valor</label>
-                      <input name="sai_valor" type="number" min="0" step="0.010" max="999999.99" id="valor" value="{{$resultado->sai_valor}}" required autocomplete="valor" autofocus class="form-control ">
+                      <input name="valor" type="number" min="0" step="0.010" max="999999.99" id="valor" value="{{$despesa->valor}}" required autocomplete="valor" autofocus class="form-control ">
                     </div>
                     <div class="col-md-6 form-group">
                       <label for="data">Data</label>
-                      <input value="{{$resultado->sai_data}}" name="sai_data" type="date" id="data" required autocomplete="data" autofocus class="form-control ">
+                      <input value="{{$despesa->data}}" name="data" type="date" id="data" required autocomplete="data" autofocus class="form-control ">
                     </div>
   
                     

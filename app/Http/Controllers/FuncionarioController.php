@@ -85,11 +85,7 @@ class FuncionarioController extends Controller
 
         if ($user) {
             if ($user->tipo_perfil!=1) {
-                $user->update([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'tipo_perfil' => $request->tipo_perfil,
-                ]); 
+                $user->update($request->all()); 
                 return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Os dados do funcionário foram editados com sucesso!');
             }else{
                 $user->update([

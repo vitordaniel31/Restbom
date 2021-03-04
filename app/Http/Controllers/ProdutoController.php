@@ -104,11 +104,7 @@ class ProdutoController extends Controller
 
         if ($produto) {
             $tipo = $produto->tipo;
-            $produto->update([
-                'descricao' => $request->descricao,
-                'preco' => $request->preco,
-                'tipo' => $request->tipo,
-            ]); 
+            $produto->update($request->all()); 
             if ($tipo==1 and $request->tipo==2) {
                 $estoque = Estoque::withTrashed()->where('id_produto', $id)->first();
                 if (!$estoque) {

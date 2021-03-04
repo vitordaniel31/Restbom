@@ -52,7 +52,10 @@ Route::group(['prefix' => 'estoque', 'middleware' => ['auth', 'admin']], functio
 });
 
 Route::group(['prefix' => 'financeiro', 'middleware' => ['auth', 'admin']], function(){
-	//Route::get('/', [DespesaController::class, 'index'])->name('produto.index');
+	Route::get('/', [DespesaController::class, 'index'])->name('financeiro.index');
 	Route::get('/despesa/create', [DespesaController::class, 'create'])->name('financeiro.despesa.create');
 	Route::post('/despesa', [DespesaController::class, 'store'])->name('financeiro.despesa.store');
+	Route::get('/despesa/edit/{id}', [DespesaController::class, 'edit'])->name('financeiro.despesa.edit');
+	Route::put('/despesa/update/{id}', [DespesaController::class, 'update'])->name('financeiro.despesa.update');
+	Route::delete('/despesa/{id}', [DespesaController::class, 'destroy'])->name('financeiro.despesa.destroy');
 });
