@@ -19,4 +19,14 @@ class Pedido extends Model
         'token',
         'id_user',
     ];
+
+    public function delivery()
+    {
+        return $this->hasOne(Delivery::class, 'id_pedido');
+    }
+
+    public function item()
+    {
+        return $this->hasMany(ItemPedido::class, 'id_pedido');
+    }
 }

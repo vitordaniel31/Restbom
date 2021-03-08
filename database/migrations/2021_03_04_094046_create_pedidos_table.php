@@ -18,7 +18,7 @@ class CreatePedidosTable extends Migration
             $table->string('cliente');
             $table->tinyInteger('status')->default(1);
             $table->string('mesa')->nullable();
-            $table->rememberToken('token');
+            $table->rememberToken();
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
             $table->timestamps();

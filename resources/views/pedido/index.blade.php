@@ -1,4 +1,4 @@
-@extends('layotus.design')
+@extends('layouts.design')
 @section('content')
     
     <div class="slider-wrap">
@@ -42,14 +42,19 @@
                 <h1 data-aos="fade-up">Pedidos</h1>
               </div>
             </div>
-          
+           @foreach (['primary', 'success'] as $msg)
+        @if(Session::has('alert-' . $msg))
+          <div class="alert alert-{{ $msg }}" role="alert">
+            {{ Session::get('alert-' . $msg) }}
+          </div>
+        @endif
+      @endforeach
         <div class="row">
            <div class="col-md-12 table-responsive">
-            <a class="btn btn-primary mb-2" href="#pedidos">Novo pedido</a>
+            <a class="btn btn-primary mb-2" href="{{route('pedido.create')}}#pedidos">Novo pedido</a>
               <table id="dataTable" class="table table-bordered table-responsive-sm table-responsive-md table-hover">
                 <thead>
                   <tr bgcolor="#F2F2F2">
-                    <th>CÓDIGO</th>
                     <th>CLIENTE</th>
                     <th>DELIVERY</th>
                     <th>MESA</th>
@@ -60,19 +65,17 @@
                 </thead>
               <tbody>
                 <tr>
-                @foreach ($pedido as $pedidos)
-                  
-                    <td>{{$pedido->id}}</td>
+                @foreach ($pedidos as $pedido)
                     <td>{{$pedido->cliente}}</td>
-                    <td>@if(is_null($pedido->id_delivery))Não @else Sim @endif</td>
-                    <td>{{$pedido->mesa}}</td>
+                    <td class="text-center">@if($pedido->delivery)<button title="Ver delivery" class="btn btn-secondary">Ver delivery</i></button>@else <i class="material-icons">cancel</i>@endif</td>
+                    <td class="text-center">@if($pedido->mesa){{$pedido->mesa}} @else <i class="material-icons">cancel</i> @endif</td>
                     <td>@if($pedido->status == 0) Em andamento
                     @else Finalizado
                     @endif
                     </td>
-                    <td>{{(new DateTime($pedido->created_at))->format('d/m/Y H:i:s')}}</td>
-                    <td>
-                      
+                    <td>{{(new DateTime($pedido->created_at))->format('H:i:s d/m/Y')}}</td>
+                    <td><button title="Ver pedido" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.item.index', [$pedido->id])}}#itens'"><i style="color: #039be5" class="material-icons">visibility</i></button>
+                      <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
                     </td>
                  </tr>
                 @endforeach

@@ -11,4 +11,17 @@ class Delivery extends Model
     use HasFactory, Notifiable;
 
     protected $table = 'delivery';
+
+    protected $fillable = [
+        'endereco',
+        'observacao',
+        'status',
+        'id_user',
+        'id_pedido',
+    ];
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class, 'id_pedido');
+    }
 }

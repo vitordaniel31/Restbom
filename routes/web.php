@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\DespesaController;
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\ItemPedidoController;
 
 
 /*
@@ -65,7 +66,9 @@ Route::group(['prefix' => 'pedido', 'middleware' => ['auth']], function(){
 	Route::get('/', [PedidoController::class, 'index'])->name('pedido.index');
 	Route::get('/create', [PedidoController::class, 'create'])->name('pedido.create');
 	Route::post('/', [PedidoController::class, 'store'])->name('pedido.store');
-	Route::get('/despesa/edit/{id}', [DespesaController::class, 'edit'])->name('pedido.despesa.edit');
-	Route::put('/despesa/update/{id}', [DespesaController::class, 'update'])->name('pedido.despesa.update');
+	Route::get('/edit/{id}', [PedidoController::class, 'edit'])->name('pedido.edit');
+	Route::put('/update/{id}', [PedidoController::class, 'update'])->name('pedido.update');
 	Route::delete('/despesa/{id}', [DespesaController::class, 'destroy'])->name('pedido.despesa.destroy');
+	Route::get('/{id}/itens', [ItemPedidoController::class, 'index'])->name('pedido.item.index');
+	Route::get('/{id}/qrcode', [PedidoController::class, 'show'])->name('pedido.qrcode');
 });

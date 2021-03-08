@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pedido;
+use App\Models\Produto;
 
 class ItemPedidoController extends Controller
 {
@@ -11,9 +13,11 @@ class ItemPedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $pedido = Pedido::find($id);
+        $produtos = Produto::all();
+        return view('pedido.item.index')->with('pedido', $pedido)->with('produtos', $produtos);
     }
 
     /**
@@ -32,9 +36,32 @@ class ItemPedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        $request->validate([
+            'id_produto' => 'required|integer|exists:produtos,id',
+            'descricao' => 'string|nullable|max:255',
+        ]);
+
+        $produto = Produto::find($request->id_produto);
+        $pedido = Pedido::find($id);
+
+        if ($produto->tipo==1) {
+            $pedido->item()->create([
+                'id_produto' => $request->id_produto,
+                'observacao' => $request->descricao,
+                'status' => 0,
+            ]);    
+        }else{
+            $pedido->item()->create([
+                'id_produto' => $request->id_produto,
+                'observacao' => $request->descricao,
+                'status' => 2,
+            ]);
+        }
+
+        return redirect(route('pedido.item.index', [$pedido->id]).'#itens')->with('alert-success', 'Item adicionado com sucesso!');
+
     }
 
     /**
