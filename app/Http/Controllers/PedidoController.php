@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\Delivery;
+use Illuminate\Support\Str;
 
 class PedidoController extends Controller
 {
@@ -49,6 +50,7 @@ class PedidoController extends Controller
             $pedido = Pedido::create([
                 'cliente' => $request->cliente,
                 'id_user' => \Auth::user()->id,
+                'remember_token' => Str::random(100),
             ]);
             $pedido->delivery()->create([
                 'endereco' => $request->endereco,
@@ -59,10 +61,11 @@ class PedidoController extends Controller
                 'cliente' => $request->cliente,
                 'mesa' => $request->mesa,
                 'id_user' => \Auth::user()->id,
+                'remember_token' => Str::random(100),
             ]);
         }
 
-        return redirect(route('pedido.item.index', [$pedido->id]).'#itens')->with('alert-success', 'Pedido registrado com sucesso!');
+        return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Pedido registrado com sucesso!');
     }
 
     /**
@@ -71,12 +74,12 @@ class PedidoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($token)
     {
         $image = \QrCode::format('png')
                          ->merge('images/logo.png', 0.3, true)
                          ->size(500)->errorCorrection('H')
-                         ->generate(route('home'));
+                         ->generate(route('pedido.item.index', [$token]));
         return response($image)->header('Content-type','image/png');
     }
 

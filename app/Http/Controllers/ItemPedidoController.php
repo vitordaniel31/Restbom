@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pedido;
 use App\Models\Produto;
+use App\Models\ItemPedido;
 
 class ItemPedidoController extends Controller
 {
@@ -13,11 +14,15 @@ class ItemPedidoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index($token)
     {
-        $pedido = Pedido::find($id);
-        $produtos = Produto::all();
-        return view('pedido.item.index')->with('pedido', $pedido)->with('produtos', $produtos);
+        $pedido = Pedido::where('remember_token', $token)->first();
+        if ($pedido) {
+            $produtos = Produto::all();
+            return view('pedido.item.index')->with('pedido', $pedido)->with('produtos', $produtos);
+        }else{
+            return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido cancelado ou inexistente! Informe um pedido válido!');
+        }
     }
 
     /**
@@ -36,7 +41,7 @@ class ItemPedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request, $token)
     {
         $request->validate([
             'id_produto' => 'required|integer|exists:produtos,id',
@@ -44,7 +49,7 @@ class ItemPedidoController extends Controller
         ]);
 
         $produto = Produto::find($request->id_produto);
-        $pedido = Pedido::find($id);
+        $pedido = Pedido::where('remember_token', $token)->first();
 
         if ($produto->tipo==1) {
             $pedido->item()->create([
@@ -60,7 +65,7 @@ class ItemPedidoController extends Controller
             ]);
         }
 
-        return redirect(route('pedido.item.index', [$pedido->id]).'#itens')->with('alert-success', 'Item adicionado com sucesso!');
+        return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item adicionado com sucesso!');
 
     }
 
@@ -106,6 +111,13 @@ class ItemPedidoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = ItemPedido::find($id);
+        if ($item) {
+            $pedido = Pedido::find($item->id_pedido);
+            $item->delete();
+            return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item excluído com sucesso!');
+        }else{
+            return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Item inexistente! Informe um item válido para conseguir excluir!');
+        }
     }
 }

@@ -18,6 +18,7 @@ class Pedido extends Model
         'mesa',
         'token',
         'id_user',
+        'remember_token',
     ];
 
     public function delivery()

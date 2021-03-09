@@ -69,6 +69,8 @@ Route::group(['prefix' => 'pedido', 'middleware' => ['auth']], function(){
 	Route::get('/edit/{id}', [PedidoController::class, 'edit'])->name('pedido.edit');
 	Route::put('/update/{id}', [PedidoController::class, 'update'])->name('pedido.update');
 	Route::delete('/despesa/{id}', [DespesaController::class, 'destroy'])->name('pedido.despesa.destroy');
-	Route::get('/{id}/itens', [ItemPedidoController::class, 'index'])->name('pedido.item.index');
 });
-Route::get('pedido/{id}/qrcode', [PedidoController::class, 'show'])->name('pedido.qrcode');
+Route::get('/{token}/itens', [ItemPedidoController::class, 'index'])->name('pedido.item.index');
+Route::put('/{token}/itens', [ItemPedidoController::class, 'store'])->name('pedido.item.store');
+Route::delete('/item/{id}', [ItemPedidoController::class, 'destroy'])->name('pedido.item.destroy');
+Route::get('/pedido/{token}/qrcode', [PedidoController::class, 'show'])->name('pedido.qrcode');

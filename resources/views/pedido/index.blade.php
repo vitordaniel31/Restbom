@@ -74,7 +74,7 @@
                     @endif
                     </td>
                     <td>{{(new DateTime($pedido->created_at))->format('H:i:s d/m/Y')}}</td>
-                    <td><button title="Ver pedido" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.item.index', [$pedido->id])}}#itens'"><i style="color: #039be5" class="material-icons">visibility</i></button>
+                    <td><button title="Ver pedido" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.item.index', [$pedido->remember_token])}}#itens'"><i style="color: #039be5" class="material-icons">visibility</i></button>
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
                     </td>
                  </tr>

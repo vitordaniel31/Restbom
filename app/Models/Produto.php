@@ -19,9 +19,4 @@ class Produto extends Model
         'tipo',
     ];
 
-    public function item()
-    {
-        return $this->belongsTo(ItemPedido::class, 'id_produto');
-    }
-
 }

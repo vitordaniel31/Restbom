@@ -20,8 +20,4 @@ class Delivery extends Model
         'id_pedido',
     ];
 
-    public function pedido()
-    {
-        return $this->belongsTo(Pedido::class, 'id_pedido');
-    }
 }

@@ -51,10 +51,15 @@
           <tbody>
             <tr>
                @foreach ($pedido->item as $item)
-                <td>{{$item->produto->descricao . ' (' . $item->observacao . ')'}}</td>
-                <td>{{date("Y-m-d H:i:s")-$item->created_at}}</td>
+                <td>{{$item->produto->descricao}} @if($item->observacao) ({{$item->observacao}}) @endif</td>
+                <td>{{date("i",strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))}} minutos</td>
                 <td>Em preparo</td>
-                <td></td>
+                <td><form action="{{route('pedido.item.destroy', [$item->id])}}" method="POST" style="display: inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button title="Excluir" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">delete</i></button>
+                      </form>
+                </td>
              </tr>
             @endforeach 
           </tr>
@@ -66,11 +71,12 @@
             <div class="row justify-content-center">
             <div class="col-md-8 text-center col-sm-12 ">
                 <h1 style="display: inline;" data-aos="fade-up">Comanda {{$pedido->id}}</h1>
-                <img height="200px" width="200px"  src="{{route('pedido.qrcode', [$pedido->id])}}"> <!--gerar qr code -->
+                <img height="200px" width="200px"  src="{{route('pedido.qrcode', [$pedido->remember_token])}}"> <!--gerar qr code -->
               </div>
             </div>
-            <form action="" method="post">
+            <form action="{{route('pedido.item.store', [$pedido->remember_token])}}" method="post">
                 @csrf
+                @method('PUT')
                 <div class="row">
                     <div class="col-md-12 form-group">
                           <label for="id_produto">Produto</label>
