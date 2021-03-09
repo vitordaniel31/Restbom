@@ -74,9 +74,9 @@ class PedidoController extends Controller
     public function show($id)
     {
         $image = \QrCode::format('png')
-                         ->merge('images/logo.png', 0.5, true)
+                         ->merge('images/logo.png', 0.3, true)
                          ->size(500)->errorCorrection('H')
-                         ->generate('A simple example of QR code!');
+                         ->generate(route('home'));
         return response($image)->header('Content-type','image/png');
     }
 
