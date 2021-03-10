@@ -16,7 +16,7 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        $pedidos = Pedido::all();
+        $pedidos = Pedido::withTrashed()->get();
         return view('pedido.index')->with('pedidos', $pedidos);
     }
 
@@ -158,6 +158,15 @@ class PedidoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pedido = Pedido::find($id);
+        if ($pedido) {
+            foreach ($pedido->item as $item) {
+                $item->delete();
+            }
+            $pedido->delete();
+            return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Pedido cancelado com sucesso!');
+        }else{
+            return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido inexistente ou já cancelado! Informe um produto válido para conseguir cancelá-lo!');
+        }
     }
 }

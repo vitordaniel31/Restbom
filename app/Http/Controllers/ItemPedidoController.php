@@ -16,7 +16,7 @@ class ItemPedidoController extends Controller
      */
     public function index($token)
     {
-        $pedido = Pedido::where('remember_token', $token)->first();
+        $pedido = Pedido::withTrashed()->where('remember_token', $token)->first();
         if ($pedido) {
             $produtos = Produto::all();
             return view('pedido.item.index')->with('pedido', $pedido)->with('produtos', $produtos);

@@ -66,13 +66,13 @@
               </li>
             @else
               <li class="nav-item">
-                <a class="nav-link active" href="#login">Cover</a>
+                <a class="nav-link" href="{{route('login')}}#home">Cover</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#login">Login</a>
+                <a class="nav-link" href="{{route('login')}}#login">Login</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#redefinir">Redefinir senha</a>
+                <a class="nav-link" href="{{route('password.request')}}#redefinir">Redefinir senha</a>
               </li>
             @endif 
             </ul>

@@ -64,22 +64,31 @@
                   </tr>
                 </thead>
               <tbody>
-                <tr>
                 @foreach ($pedidos as $pedido)
+                  <tr>
                     <td>{{$pedido->cliente}}</td>
-                    <td class="text-center">@if($pedido->delivery)<button title="Ver delivery" class="btn btn-secondary">Ver delivery</i></button>@else <i class="material-icons">cancel</i>@endif</td>
-                    <td class="text-center">@if($pedido->mesa){{$pedido->mesa}} @else <i class="material-icons">cancel</i> @endif</td>
-                    <td>@if($pedido->status == 0) Em andamento
-                    @else Finalizado
+                    <td class="text-center">@if($pedido->delivery and !$pedido->trashed())<button title="Ver delivery" class="btn btn-secondary">Ver delivery</i></button>@else <i class="material-icons">cancel</i>@endif</td>
+                    <td class="text-center">@if($pedido->mesa and !$pedido->trashed()){{$pedido->mesa}} @else <i class="material-icons">cancel</i> @endif</td>
+                    <td>@if($pedido->deleted_at) Cancelado
+                    @elseif($pedido->status==0) Em andamento
+                    @elseif($pedido->status==1) Servido
+                    @elseif($pedido->status==2) Em delivery
+                    @elseif($pedido->status==3) Finalizado
                     @endif
                     </td>
                     <td>{{(new DateTime($pedido->created_at))->format('H:i:s d/m/Y')}}</td>
                     <td><button title="Ver pedido" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.item.index', [$pedido->remember_token])}}#itens'"><i style="color: #039be5" class="material-icons">visibility</i></button>
+                      @if(!$pedido->trashed())
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                      <form action="{{route('pedido.destroy', [$pedido->id])}}" method="POST" style="display: inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button title="Cancelar" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">cancel</i></button>
+                      </form>
+                      @endif
                     </td>
-                 </tr>
+                  </tr>
                 @endforeach
-              </tr>
             </tbody>
             </table>
         </div>

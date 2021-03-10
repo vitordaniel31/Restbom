@@ -39,41 +39,12 @@
         <div class="row">
           <div class="col-lg-6 ">
             <div class="row justify-content-center">
-              <table class="table table-hover">
-            <thead>
-              <tr bgcolor="#F2F2F2">
-                <th>DESCRICÃO</th>
-                <th>ESPERA</th>
-                <th>STATUS</th>
-                <th>AÇÕES</th>
-              </tr>
-            </thead>
-          <tbody>
-            <tr>
-               @foreach ($pedido->item as $item)
-                <td>{{$item->produto->descricao}} @if($item->observacao) ({{$item->observacao}}) @endif</td>
-                <td>{{date("i",strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))}} minutos</td>
-                <td>Em preparo</td>
-                <td><form action="{{route('pedido.item.destroy', [$item->id])}}" method="POST" style="display: inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button title="Excluir" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">delete</i></button>
-                      </form>
-                </td>
-             </tr>
-            @endforeach 
-          </tr>
-        </tbody>
-        </table>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="row justify-content-center">
             <div class="col-md-8 text-center col-sm-12 ">
                 <h1 style="display: inline;" data-aos="fade-up">Comanda {{$pedido->id}}</h1>
                 <img height="200px" width="200px"  src="{{route('pedido.qrcode', [$pedido->remember_token])}}"> <!--gerar qr code -->
               </div>
             </div>
+            @if(!$pedido->trashed())
             <form action="{{route('pedido.item.store', [$pedido->remember_token])}}" method="post">
                 @csrf
                 @method('PUT')
@@ -82,7 +53,7 @@
                           <label for="id_produto">Produto</label>
                           <select name="id_produto" class="form-control browser-default custom-select" id="id_produto" required>
                             @foreach ($produtos as $produto)
-                            <option value="{{$produto->id}}">{{$produto->descricao}}</option>
+                            <option value="{{$produto->id}}">{{$produto->descricao}} - R${{$produto->preco}}</option>
                             @endforeach                  
                           </select>
                         </div>
@@ -101,6 +72,49 @@
                     </div>
                 </div>  
             </form>
+            @endif
+          </div>
+          <div class="col-lg-6">
+            <div class="row justify-content-center table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr bgcolor="#F2F2F2">
+                    <th>DESCRICÃO</th>
+                    <th>PREÇO</th>
+                    <th>ESPERA</th>
+                    <th>STATUS</th>
+                    <th>AÇÕES</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr bgcolor="#F2F2F2">
+                    <th class="text-right">TOTAL:</th>
+                    <th>R$ {{$pedido->item->sum('produto.preco')}}</th>
+                    <th></th>
+                    <th>@if(!$pedido->trashed())<a class="btn btn-primary mb-2" href="{{route('produto.create')}}#produtos">Pagar</a>@endif</th>
+                    <th></th>
+                  </tr>
+                </tfoot>
+              <tbody>
+                   @foreach ($pedido->item as $item)
+                  <tr>
+                    <td>{{$item->produto->descricao}} @if($item->observacao) ({{$item->observacao}}) @endif</td>
+                    <td>R${{$item->produto->preco}}</td>
+                    <td>@if((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))>=3600){{number_format(((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))/3600), 2, ',', '')}} horas @else {{number_format(((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))/60), 2, ',', '')}} minutos @endif</td>
+                    <td>Em preparo</td>
+                    <td><form action="{{route('pedido.item.destroy', [$item->id])}}" method="POST" style="display: inline;">
+                              @csrf
+                              @method('DELETE')
+                              <button title="Excluir" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">delete</i></button>
+                          </form>
+                    </td>
+                 </tr>
+                @endforeach 
+              
+              </tbody>
+            </table>
+  
+            </div>
           </div>
         </div>
       </div>
