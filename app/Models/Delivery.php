@@ -20,4 +20,14 @@ class Delivery extends Model
         'id_pedido',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class, 'id_pedido');
+    }
+
 }

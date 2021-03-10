@@ -61,7 +61,7 @@ class ItemPedidoController extends Controller
             $pedido->item()->create([
                 'id_produto' => $request->id_produto,
                 'observacao' => $request->descricao,
-                'status' => 2,
+                'status' => 1,
             ]);
         }
 
@@ -100,7 +100,18 @@ class ItemPedidoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Item::find($id);
+        if ($item) {
+            $pedido = Pedido::find($item->id_pedido);
+            if($item->status==1 and !$pedido->delivery){
+                $item->update([
+                    'status' => 2
+                ]);
+                return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'O Item do pedido foi servido com sucesso!');
+            }
+        }else{
+            return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-primary', 'Item inexistente!');
+        }
     }
 
     /**
@@ -114,8 +125,12 @@ class ItemPedidoController extends Controller
         $item = ItemPedido::find($id);
         if ($item) {
             $pedido = Pedido::find($item->id_pedido);
-            $item->delete();
-            return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item excluído com sucesso!');
+            if ($item->status==0 or ($item->produto->tipo==2 and $item->status==1)) {
+                $item->delete();
+                return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item excluído com sucesso!');
+            }else{
+                return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-primary', 'Item já foi servido ou já está pronto! Não é possível excluí-lo!');
+            }
         }else{
             return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Item inexistente! Informe um item válido para conseguir excluir!');
         }

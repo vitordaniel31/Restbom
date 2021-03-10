@@ -17,6 +17,22 @@ class PedidoController extends Controller
     public function index()
     {
         $pedidos = Pedido::withTrashed()->get();
+        foreach ($pedidos as $pedido) {
+            foreach ($pedido->item as $item) {
+                $qtd_itens = $item->count('id');
+                $itens_prontos = $item->where('status', 1)->count('id');
+                if ($qtd_itens>0 and $qtd_itens==$itens_prontos) {
+                    $pedido->update(['status'=>1]);
+                }else{
+                    $itens_servidos = $item->where('status', 2)->count('id');
+                    if($item->where('status', 0)->count('id')>0) {
+                        $pedido->update(['status'=>0]);
+                    }elseif($qtd_itens>0 and ($qtd_itens == $itens_servidos) and !$pedido->delivery){
+                        $pedido->update(['status'=>2]);
+                    }
+                }
+            }
+        }
         return view('pedido.index')->with('pedidos', $pedidos);
     }
 
@@ -138,10 +154,18 @@ class PedidoController extends Controller
                     ]);
                 }
             }else{
-                $pedido->update([
-                    'cliente' => $request->input('cliente', $pedido->cliente),
-                    'mesa' => $request->input('mesa', $pedido->mesa),
-                ]);
+                if(!$pedido->mesa){
+                    $pedido->update([
+                        'cliente' => $request->input('cliente', $pedido->cliente),
+                        'mesa' => $request->input('mesa', $pedido->mesa),
+                    ]);
+                    $pedido->delivery->delete();
+                }else{
+                    $pedido->update([
+                        'cliente' => $request->input('cliente', $pedido->cliente),
+                        'mesa' => $request->input('mesa', $pedido->mesa),
+                    ]);
+                }
             }
            
             return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Os dados do pedido foram editados com sucesso!');
@@ -169,4 +193,21 @@ class PedidoController extends Controller
             return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido inexistente ou já cancelado! Informe um produto válido para conseguir cancelá-lo!');
         }
     }
+
+    public function delivery($id)
+    {
+        $pedido = Pedido::find($id);
+        if ($pedido) {
+            if($pedido->delivery){
+                return view('pedido.delivery.index')->with('pedido', $pedido);
+            }else{
+                return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido não possui delivery cadastrado!');
+            }
+            
+        }else{
+            return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido inexistente ou já cancelado! Informe um produto válido para conseguir acessar seu delivery!');
+        }
+    }
+    
+
 }

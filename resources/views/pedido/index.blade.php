@@ -67,13 +67,14 @@
                 @foreach ($pedidos as $pedido)
                   <tr>
                     <td>{{$pedido->cliente}}</td>
-                    <td class="text-center">@if($pedido->delivery and !$pedido->trashed())<button title="Ver delivery" class="btn btn-secondary">Ver delivery</i></button>@else <i class="material-icons">cancel</i>@endif</td>
+                    <td class="text-center">@if($pedido->delivery and !$pedido->trashed())<button onclick="window.location.href='{{route('pedido.delivery.index', [$pedido->id])}}#deliveries'" title="Ver delivery" class="btn btn-secondary">Ver delivery</i></button>@else <i class="material-icons">cancel</i>@endif</td>
                     <td class="text-center">@if($pedido->mesa and !$pedido->trashed()){{$pedido->mesa}} @else <i class="material-icons">cancel</i> @endif</td>
                     <td>@if($pedido->deleted_at) Cancelado
                     @elseif($pedido->status==0) Em andamento
-                    @elseif($pedido->status==1) Servido
-                    @elseif($pedido->status==2) Em delivery
-                    @elseif($pedido->status==3) Finalizado
+                    @elseif($pedido->status==1) Pronto
+                    @elseif($pedido->status==2) Servido
+                    @elseif($pedido->status==3) Em delivery
+                    @elseif($pedido->status==4) Finalizado
                     @endif
                     </td>
                     <td>{{(new DateTime($pedido->created_at))->format('H:i:s d/m/Y')}}</td>

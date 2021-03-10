@@ -7,7 +7,7 @@ use App\Http\Controllers\EstoqueController;
 use App\Http\Controllers\DespesaController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ItemPedidoController;
-
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,8 +69,15 @@ Route::group(['prefix' => 'pedido', 'middleware' => ['auth']], function(){
 	Route::get('/edit/{id}', [PedidoController::class, 'edit'])->name('pedido.edit');
 	Route::put('/update/{id}', [PedidoController::class, 'update'])->name('pedido.update');
 	Route::delete('/{id}', [PedidoController::class, 'destroy'])->name('pedido.destroy');
+	Route::put('/item/update/{id}', [ItemPedidoController::class, 'update'])->name('pedido.item.update');
+	Route::get('/delivery/{id}', [PedidoController::class, 'delivery'])->name('pedido.delivery.index');
 });
+
 Route::get('/{token}/itens', [ItemPedidoController::class, 'index'])->name('pedido.item.index');
 Route::put('/{token}/itens', [ItemPedidoController::class, 'store'])->name('pedido.item.store');
 Route::delete('/item/{id}', [ItemPedidoController::class, 'destroy'])->name('pedido.item.destroy');
 Route::get('/pedido/{token}/qrcode', [PedidoController::class, 'show'])->name('pedido.qrcode');
+
+Route::group(['prefix' => 'delivery', 'middleware' => ['auth']], function(){
+	Route::get('/', [DeliveryController::class, 'index'])->name('delivery.index');
+});

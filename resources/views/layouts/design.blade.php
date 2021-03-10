@@ -40,6 +40,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('delivery.index')}}">Delivery</a>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('financeiro.index')}}#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
