@@ -19,4 +19,8 @@ class Produto extends Model
         'tipo',
     ];
 
+    public function estoque()
+    {
+        return $this->hasOne(Estoque::class, 'id_produto');
+    }
 }

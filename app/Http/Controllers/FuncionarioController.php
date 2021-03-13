@@ -113,9 +113,9 @@ class FuncionarioController extends Controller
             if ($user->tipo_perfil!=1) {
                 $user->delete();
                 return redirect(route('funcionario.index').'#funcionarios')->with('alert-success', 'Funcionário inativado com sucesso!');
-            }else return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário é um administrador e não pode ser excluído!');
+            }else return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário é um administrador e não pode ser inativado!');
         }else{
-            return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário inativo ou inexistente! Informe um funcionário ativo para conseguir excluir!');
+            return redirect(route('funcionario.index').'#registro')->with('alert-primary', 'Funcionário inativo ou inexistente! Informe um funcionário ativo para conseguir inativá-lo!');
         }
     }
 

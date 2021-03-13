@@ -143,7 +143,7 @@ class ProdutoController extends Controller
             $produto->delete();
             return redirect(route('produto.index').'#produtos')->with('alert-success', 'Produto inativado com sucesso!');
         }else{
-            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto inativo ou inexistente! Informe um produto ativo para conseguir excluir!');
+            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Produto inativo ou inexistente! Informe um produto ativo para conseguir inativá-lo!');
         }
     }
 

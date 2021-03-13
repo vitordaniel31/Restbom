@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FormaPagamento;
 
 class FormaPagamentoController extends Controller
 {
@@ -13,7 +14,8 @@ class FormaPagamentoController extends Controller
      */
     public function index()
     {
-        //
+        $formas = FormaPagamento::withTrashed()->get();
+        return view('financeiro.formaPagamento.index')->with('formas', $formas);
     }
 
     /**
@@ -23,7 +25,7 @@ class FormaPagamentoController extends Controller
      */
     public function create()
     {
-        //
+        return view('financeiro.formaPagamento.create');
     }
 
     /**
@@ -34,7 +36,15 @@ class FormaPagamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'descricao' => 'required|string|max:255|unique:formasdepagamento',
+        ]);
+
+        $produto = FormaPagamento::create([
+            'descricao' => $request->descricao,
+        ]);
+
+        return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-success', 'Forma de pagamento registrada com sucesso!');
     }
 
     /**
@@ -56,7 +66,12 @@ class FormaPagamentoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $forma = FormaPagamento::find($id);
+        if ($forma) {
+            return view('financeiro.formaPagamento.edit')->with('forma', $forma);
+        }else{
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-primary', 'Forma de pagamento inativa ou inexistente! Informe uma forma de pagamento ativa para conseguir editar!');
+        }
     }
 
     /**
@@ -68,7 +83,18 @@ class FormaPagamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'descricao' => 'string|max:255|unique:formasdepagamento,descricao,' . $id . ',id',
+        ]);
+
+        $forma = FormaPagamento::find($id);
+
+        if ($forma) {
+            $forma->update($request->all()); 
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-success', 'Os dados da forma de pagamento foram editados com sucesso!');
+        }else{
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-primary', 'Forma de pagamento inativa ou inexistente! Informe uma forma de pagamento ativa para conseguir editar!');
+        }
     }
 
     /**
@@ -79,6 +105,27 @@ class FormaPagamentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $forma = FormaPagamento::find($id);
+        $forma_qtd = FormaPagamento::count('id');
+        if ($forma) {
+            if ($forma_qtd == 1) {
+                return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-primary', 'Você precisa manter ao menos uma forma de pagamento ativa!');
+            }
+            $forma->delete();
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-success', 'Forma de pagamento inativada com sucesso!');
+        }else{
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-primary', 'Forma de pagamento inativa ou inexistente! Informe uma forma de pagamento ativa para conseguir inativá-la!');
+        }
+    }
+
+    public function restore($id)
+    {
+        $forma = FormaPagamento::onlyTrashed()->where('id', $id);
+        if ($forma) {
+            $forma->restore();
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-success', 'Forma de pagamento ativada com sucesso!');
+        }else{
+            return redirect(route('financeiro.formaPagamento.index').'#formas')->with('alert-primary', 'Forma de pagamento ativa ou inexistente! Informe uma forma de pagamento inativa para conseguir ativá-la!');
+        }
     }
 }

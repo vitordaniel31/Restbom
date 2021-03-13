@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\FormaPagamento;
+use App\Models\Pedido;
 
 class EntradaController extends Controller
 {
@@ -11,9 +13,11 @@ class EntradaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($token)
     {
-        //
+        $pedido = Pedido::where('remember_token', $token)->first();
+        $formas = FormaPagamento::all();
+        return view('financeiro.entrada.index')->with('pedido', $pedido)->with('formas', $formas);
     }
 
     /**
@@ -32,7 +36,7 @@ class EntradaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $token)
     {
         //
     }

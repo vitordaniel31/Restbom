@@ -81,6 +81,9 @@
                     <td><button title="Ver pedido" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.item.index', [$pedido->remember_token])}}#itens'"><i style="color: #039be5" class="material-icons">visibility</i></button>
                       @if(!$pedido->trashed())
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                      @if($pedido->status==1 or $pedido->status==3)
+                      <button title="Pagar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('financeiro.entrada.index', [$pedido->remember_token])}}#pagamento'"><i style="color: #039be5" class="material-icons">payment</i></button>
+                      @endif
                       <form action="{{route('pedido.destroy', [$pedido->id])}}" method="POST" style="display: inline;">
                           @csrf
                           @method('DELETE')

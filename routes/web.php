@@ -8,6 +8,9 @@ use App\Http\Controllers\DespesaController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ItemPedidoController;
 use App\Http\Controllers\DeliveryController;
+use App\Http\Controllers\FormaPagamentoController;
+use App\Http\Controllers\EntradaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +63,17 @@ Route::group(['prefix' => 'financeiro', 'middleware' => ['auth', 'admin']], func
 	Route::get('/despesa/edit/{id}', [DespesaController::class, 'edit'])->name('financeiro.despesa.edit');
 	Route::put('/despesa/update/{id}', [DespesaController::class, 'update'])->name('financeiro.despesa.update');
 	Route::delete('/despesa/{id}', [DespesaController::class, 'destroy'])->name('financeiro.despesa.destroy');
+
+	Route::get('/formaPagamento', [FormaPagamentoController::class, 'index'])->name('financeiro.formaPagamento.index');
+	Route::get('/formaPagamento/create', [FormaPagamentoController::class, 'create'])->name('financeiro.formaPagamento.create');
+	Route::post('/formaPagamento', [FormaPagamentoController::class, 'store'])->name('financeiro.formaPagamento.store');
+	Route::get('/formaPagamento/edit/{id}', [FormaPagamentoController::class, 'edit'])->name('financeiro.formaPagamento.edit');
+	Route::put('/formaPagamento/update/{id}', [FormaPagamentoController::class, 'update'])->name('financeiro.formaPagamento.update');
+	Route::delete('/formaPagamento/{id}', [FormaPagamentoController::class, 'destroy'])->name('financeiro.formaPagamento.destroy');
+	Route::put('/formaPagamento/{id}', [FormaPagamentoController::class, 'restore'])->name('financeiro.formaPagamento.restore');
+
+	Route::get('/pagamento/{token}', [EntradaController::class, 'index'])->name('financeiro.entrada.index');
+	Route::post('/pagamento/store/{token}', [EntradaController::class, 'store'])->name('financeiro.entrada.store');
 });
 
 Route::group(['prefix' => 'pedido', 'middleware' => ['auth']], function(){

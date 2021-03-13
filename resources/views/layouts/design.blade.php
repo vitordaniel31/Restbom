@@ -46,6 +46,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('financeiro.index')}}#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
+                  <a class="dropdown-item" href="{{route('financeiro.formaPagamento.index')}}#formas">Formas de pagamento</a>
                   <a class="dropdown-item" href="{{route('financeiro.despesa.create')}}#saidas">Nova despesa</a>
                 </div>
               </li>
