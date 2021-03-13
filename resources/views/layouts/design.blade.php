@@ -41,7 +41,7 @@
                 <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{route('delivery.index')}}">Delivery</a>
+                <a class="nav-link" href="{{route('delivery.index')}}#deliveries">Delivery</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('financeiro.index')}}#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
@@ -96,6 +96,38 @@
     </header>
     <!-- END header -->
 
+    <div class="slider-wrap">
+      <section id="home" class="home-slider owl-carousel">
+
+
+        <div class="slider-item" style="background-image: url({{asset('foody/img/hero_1.jpg')}});">
+          
+          <div class="container">
+            <div class="row slider-text align-items-center justify-content-center">
+              <div class="col-md-8 text-center col-sm-12 ">
+                <h1 data-aos="fade-up">O melhor tempero da comida é a fome</h1>                
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="slider-item" style="background-image: url({{asset('foody/img/hero_2.jpg')}});">
+          <div class="container">
+            <div class="row slider-text align-items-center justify-content-center">
+              <div class="col-md-8 text-center col-sm-12 ">
+                <h1 data-aos="fade-up">Receitas que despertam memórias;</h1>
+                <!--<p class="mb-5" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente et sed quasi.</p>-->
+              </div>
+            </div>
+          </div>
+          
+        </div>
+
+      </section>
+    <!-- END slider -->
+    </div> 
+
     @yield('content')
 
     <footer class="site-footer" role="contentinfo">
@@ -116,12 +148,14 @@
             </div>
           </div>
           <div class="col-md-3 mb-5">
-            <h3>Quick Links</h3>
+            <h3>Links rápidos</h3>
             <ul class="list-unstyled footer-link">
-              <li><a href="#">About</a></li>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Disclaimers</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="{{route('home')}}">Home</a></li>
+              <li><a href="{{route('delivery.index')}}#deliveries">Delivery</a></li>
+              <li><a href="{{route('financeiro.index')}}#financeiro">Financeiro</a></li>
+              <li><a href="{{route('funcionario.index')}}#funcionarios">Funcionários</a></li>
+              <li><a href="{{route('pedido.index')}}#pedidos">Pedidos</a></li>
+              <li><a href="{{route('produto.index')}}#produtos">Produtos</a></li>
             </ul>
           </div>
           <div class="col-md-3">
