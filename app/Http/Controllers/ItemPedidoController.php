@@ -60,7 +60,7 @@ class ItemPedidoController extends Controller
         }else{
             $produto = Produto::find($request->id_produto);
             if ($produto->estoque->quantidade<=0) {
-                return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item fora de estoque!');
+                return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-primary', 'Item fora de estoque!');
             }
             $pedido->item()->create([
                 'id_produto' => $request->id_produto,

@@ -105,13 +105,6 @@
           <div class="col-md-4 mb-5">
             <h3>Sobre nós</h3>
             <p class="mb-5">Somos estudantes do Instituto de Educação, Ciência e Tecnologia do Rio Grande do Norte, do Curso Técnico Integrado em Nível Médio de Informática. Programadores fanáticos, decidimos fazer um sistema de administração de restaurantes perfeito para você<i class="fa fa-heart text-danger" aria-hidden="true"></i>. </p>
-            <ul class="list-unstyled footer-link d-flex footer-social">
-              <li><a href="#" class="p-2"><span class="fa fa-twitter"></span></a></li>
-              <li><a href="#" class="p-2"><span class="fa fa-facebook"></span></a></li>
-              <li><a href="#" class="p-2"><span class="fa fa-linkedin"></span></a></li>
-              <li><a href="#" class="p-2"><span class="fa fa-instagram"></span></a></li>
-            </ul>
-
           </div>
           <div class="col-md-5 mb-5">
             <div>

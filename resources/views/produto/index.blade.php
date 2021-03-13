@@ -51,7 +51,7 @@
           
         <div class="row">
           <div class="col-md-12 table-responsive">
-            <a class="btn btn-primary mb-2" href="{{route('produto.create')}}#produtos">Nova produto</a>
+            <a class="btn btn-primary mb-2" href="{{route('produto.create')}}#produtos">Novo produto</a>
               <table id="dataTable" class="table table-hover">
                 <thead>
                   <tr bgcolor="#F2F2F2">
@@ -72,7 +72,7 @@
                     <td>
                       @if(!$produto->trashed())
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('produto.edit', [$produto->id])}}#produtos'"><i style="color: #039be5" class="material-icons">edit</i></button>
-                      @if($produto->tipo=='E')
+                      @if($produto->estoque)
                       <button title="Estoque" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('estoque.edit', [$produto->id])}}#estoque'"><i style="color: #039be5" class="material-icons">input</i></button>
                       @endif
                       <form action="{{route('produto.destroy', [$produto->id])}}" method="POST" style="display: inline;">
