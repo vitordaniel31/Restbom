@@ -15,7 +15,7 @@
             
                 <div class="row">
                     <div class="col-md-12 form-group">
-                      <label for="endereco">Descrição</label>
+                      <label for="endereco">Endereço</label>
                       <textarea name="endereco" type="text" id="endereco" autocomplete="endereco" autofocus class="form-control" disabled="">{{$pedido->delivery->endereco}}</textarea>
                     </div>
                 </div>

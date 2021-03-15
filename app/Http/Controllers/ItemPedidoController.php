@@ -67,6 +67,7 @@ class ItemPedidoController extends Controller
                 'observacao' => $request->descricao,
                 'status' => 1,
             ]);
+            $produto->estoque()->update(['quantidade'=>$produto->estoque->quantidade -1]);
         }
 
         return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item adicionado com sucesso!');
@@ -130,6 +131,9 @@ class ItemPedidoController extends Controller
         if ($item) {
             $pedido = Pedido::find($item->id_pedido);
             if ($item->status==0 or ($item->produto->tipo==2 and $item->status==1)) {
+                if ($item->produto->tipo==2) {
+                    $item->produto()->update(['quantidade' => $item->produto->quantidade +1]);
+                }
                 $item->delete();
                 return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item excluído com sucesso!');
             }else{

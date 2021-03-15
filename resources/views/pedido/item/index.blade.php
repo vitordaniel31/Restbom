@@ -5,6 +5,13 @@
       <div class="container card">  
         <div class="row">
           <div class="col-lg-6 ">
+            @foreach (['primary', 'success'] as $msg)
+            @if(Session::has('alert-' . $msg))
+              <div class="alert alert-{{ $msg }}" role="alert">
+                {{ Session::get('alert-' . $msg) }}
+              </div>
+            @endif
+          @endforeach
             <div class="row justify-content-center">
             <div class="col-md-8 text-center col-sm-12 ">
                 <h1 style="display: inline;" data-aos="fade-up">Comanda {{$pedido->id}}</h1>

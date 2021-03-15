@@ -116,7 +116,7 @@
           <div class="container">
             <div class="row slider-text align-items-center justify-content-center">
               <div class="col-md-8 text-center col-sm-12 ">
-                <h1 data-aos="fade-up">Receitas que despertam memórias;</h1>
+                <h1 data-aos="fade-up">Receitas que despertam memórias</h1>
                 <!--<p class="mb-5" data-aos="fade-up" data-aos-delay="100">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente et sed quasi.</p>-->
               </div>
             </div>
