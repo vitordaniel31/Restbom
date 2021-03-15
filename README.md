@@ -47,17 +47,17 @@
 ### Mobile
 
 <p align="center">
-  <img alt="login-mobile" title="#login-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/login-mobile.jpeg" width="200px">
+  <img alt="login-mobile" title="#login-mobile" src="https://restbom.herokuapp.com/images/mobile2.jpeg" width="200px">
 
-  <img alt="home-mobile" title="#home-mobile" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/home-mobile.jpeg" width="200px">
+  <img alt="home-mobile" title="#home-mobile" src="https://restbom.herokuapp.com/images/mobile1.jpeg" width="200px">
 </p>
 
 ### Web
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="login-web" title="#login-web" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/login-web.png" width="400px">
+  <img alt="login-web" title="#login-web" src="https://restbom.herokuapp.com/images/web2.png" width="400px">
 
-  <img alt="home-web" title="#home-web" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/home-web.png" width="400px">
+  <img alt="home-web" title="#home-web" src="https://restbom.herokuapp.com/images/web1.png" width="400px">
 </p>
 
 ---
@@ -111,10 +111,10 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 <table>
   <tr>
-    <td align="center"><a><img style="border-radius: 50%;" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/biancaveras.jpeg" width="100px;" alt=""/><br /><sub><b>Bianca Veras</b></sub></a><br /></td>
-    <td align="center"><a><img style="border-radius: 50%;" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/annakaroline.jpeg" width="100px;" alt=""/><br /><sub><b>Anna Karoline</b></sub></a><br /></td>
-    <td align="center"><a><img style="border-radius: 50%;" src="https://digitalfuelstation.herokuapp.com/DigitalFuelStation/samaraluiza.jpeg" width="100px;" alt=""/><br /><sub><b>Sâmara Luíza</b></sub></a><br /></td>
-    
+    <td align="center"><a><img style="border-radius: 50%;" src="https://restbom.herokuapp.com/images/isadora.jpeg" width="100px;" alt=""/><br /><sub><b>Isadora Mariz</b></sub></a><br /></td>
+    <td align="center"><a><img style="border-radius: 50%;" src="https://restbom.herokuapp.com/images/leandro.jpeg" width="100px;" alt=""/><br /><sub><b>Leandro Tomaz</b></sub></a><br /></td>
+    <td align="center"><a><img style="border-radius: 50%;" src="https://restbom.herokuapp.com/images/maria.jpg" width="100px;" alt=""/><br /><sub><b>Maria Fernanda</b></sub></a><br /></td>
+    <td align="center"><a><img style="border-radius: 50%;" src="https://restbom.herokuapp.com/images/vanessa.jpeg" width="100px;" alt=""/><br /><sub><b>Vanessa Maria</b></sub></a><br /></td> 
   </tr>
 </table>
 
