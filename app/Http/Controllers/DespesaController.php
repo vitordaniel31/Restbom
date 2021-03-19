@@ -74,7 +74,7 @@ class DespesaController extends Controller
         if ($despesa) {
             return view('financeiro.despesa.edit')->with('despesa', $despesa);
         }else{
-            return redirect(route('home').'#despesass')->with('alert-primary', 'Despesa inexistente! Informe uma despesa existente para conseguir editar!');
+            return redirect(route('financeiro.index').'#despesass')->with('alert-primary', 'Despesa inexistente! Informe uma despesa existente para conseguir editar!');
         }
     }
 
@@ -97,9 +97,9 @@ class DespesaController extends Controller
 
         if ($despesa) {
             $despesa->update($request->all());
-            return redirect(route('home').'#despesas')->with('alert-success', 'Os dados da despesa foram editados com sucesso!');
+            return redirect(route('financeiro.index').'#despesas')->with('alert-success', 'Os dados da despesa foram editados com sucesso!');
         }else{
-            return redirect(route('home').'#despesass')->with('alert-primary', 'Despesa inexistente! Informe uma despesa existente para conseguir editar!');
+            return redirect(route('financeiro.index').'#despesass')->with('alert-primary', 'Despesa inexistente! Informe uma despesa existente para conseguir editar!');
         }
     }
 
@@ -115,9 +115,9 @@ class DespesaController extends Controller
 
         if ($despesa) {
             $despesa->delete();
-            return redirect(route('home').'#despesas')->with('alert-success', 'Despesa excluída com sucesso!');
+            return redirect(route('financeiro.index').'#despesas')->with('alert-success', 'Despesa excluída com sucesso!');
         }else{
-            return redirect(route('home').'#despesass')->with('alert-primary', 'Despesa inexistente! Informe uma despesa existente para conseguir excluir!');
+            return redirect(route('financeiro.index').'#despesass')->with('alert-primary', 'Despesa inexistente! Informe uma despesa existente para conseguir excluir!');
         }
     }
 }
