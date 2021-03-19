@@ -40,9 +40,12 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
+              @if(\Auth::user()->tipo_perfil==1 or \Auth::user()->tipo_perfil==3)
               <li class="nav-item">
-                <a class="nav-link" href="{{route('delivery.index')}}#deliveries">Delivery</a>
+                <a class="nav-link" href="{{route('delivery.index')}}#deliveries">Deliveries</a>
               </li>
+              @endif
+              @if(\Auth::user()->tipo_perfil==1)
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('financeiro.index')}}#financeiro'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Financeiro</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
@@ -56,22 +59,24 @@
                   <a class="dropdown-item" href="{{route('register.create')}}#registro">Novo funcionário</a>
                 </div>
               </li>
+              @endif
+              @if(\Auth::user()->tipo_perfil==1 or \Auth::user()->tipo_perfil==4)
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('pedido.index')}}#pedidos'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pedidos</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="{{route('pedido.create')}}#pedidos">Novo pedido</a>
                 </div>
               </li>
+              @endif
+              @if(\Auth::user()->tipo_perfil==1)
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" ondblclick="window.location.href = '{{route('produto.index')}}#produtos'" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Produtos</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown04">
                   <a class="dropdown-item" href="{{route('produto.create')}}#produtos">Novo produto</a>
                 </div>
               </li>
+              @endif
             @else
-              <li class="nav-item">
-                <a class="nav-link" href="{{route('login')}}#home">Cover</a>
-              </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{route('login')}}#login">Login</a>
               </li>

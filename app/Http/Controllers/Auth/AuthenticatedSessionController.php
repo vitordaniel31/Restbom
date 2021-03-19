@@ -32,7 +32,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect(RouteServiceProvider::HOME);
+        if (\Auth::user()->tipo_perfil==1) return redirect(RouteServiceProvider::HOME);
+        elseif(\Auth::user()->tipo_perfil==2) return redirect(RouteServiceProvider::HOME);
+        elseif(\Auth::user()->tipo_perfil==3) return redirect(route('delivery.index'));
+        elseif(\Auth::user()->tipo_perfil==4) return redirect(route('pedido.index'));
     }
 
     /**

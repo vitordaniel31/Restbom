@@ -20,7 +20,7 @@
 
 ## 💻 Sobre o projeto
 
-⛽️ O Restbom é um sistema de administração online para restaurantes, que gerencia os pedidos, acompanha o preparo e leva ao admistrador o relatório de vendas do seu estabelecimento. Prático e rápido, o Restbom leva a tecnologia até você. Link da aplicação: https://restbom.herokuapp.com/
+🍽️ O Restbom é um sistema de administração online para restaurantes, que gerencia os pedidos, acompanha o preparo e leva ao admistrador o relatório de vendas do seu estabelecimento. Prático e rápido, o Restbom leva a tecnologia até você. Link da aplicação: https://restbom.herokuapp.com/
 
 ---
 

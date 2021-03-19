@@ -11,7 +11,7 @@
           </div>
           <div class="col-lg-6">
             <div class="row justify-content-center">
-              <h1>Editar pedido</h1>
+              <h1>Cadastro de pedido</h1>
             </div>
             @error('cliente')
               <div class="alert alert-primary" role="alert">

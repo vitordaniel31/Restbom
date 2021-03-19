@@ -45,7 +45,7 @@
                 </thead>
                 <tfoot>
                   <tr bgcolor="#F2F2F2">
-                    <th>@if(!$pedido->trashed())<a class="btn btn-primary mb-2" href="{{route('produto.create')}}#produtos">Pagar</a>@endif</th>
+                    <th>@if(!$pedido->trashed() and @$pedido->delivery->user->id == Auth::user()->id)<a class="btn btn-primary mb-2" href="{{route('produto.create')}}#produtos">Finalizar</a>@endif</th>
                     <th>TOTAL: R$ {{$pedido->item->sum('produto.preco')}}</th>
                   </tr>
                 </tfoot>

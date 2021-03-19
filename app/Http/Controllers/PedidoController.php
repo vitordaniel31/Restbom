@@ -21,7 +21,7 @@ class PedidoController extends Controller
             foreach ($pedido->item as $item) {
                 $qtd_itens = $item->count('id');
                 $itens_prontos = $item->where('status', 1)->count('id');
-                if ($qtd_itens>0 and $qtd_itens==$itens_prontos) {
+                if ($qtd_itens>0 and $qtd_itens==$itens_prontos and $pedido->status<3) {
                     $pedido->update(['status'=>1]);
                 }else{
                     $itens_servidos = $item->where('status', 2)->count('id');
@@ -191,6 +191,22 @@ class PedidoController extends Controller
             return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Pedido cancelado com sucesso!');
         }else{
             return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido inexistente ou já cancelado! Informe um produto válido para conseguir cancelá-lo!');
+        }
+    }
+
+    public function autorizeDelivery($id)
+    {
+        $pedido = Pedido::find($id);
+        if ($pedido) {
+            if($pedido->delivery){
+                $pedido->update(['status'=>3]);
+                return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Delivery do pedido autorizado!');
+            }else{
+                return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido não possui delivery cadastrado!');
+            }
+            
+        }else{
+            return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido inexistente ou já cancelado! Informe um produto válido para conseguir acessar seu delivery!');
         }
     }
 

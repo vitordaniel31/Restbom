@@ -64,7 +64,7 @@
                     <th class="text-right">TOTAL:</th>
                     <th>R$ {{$pedido->item->sum('produto.preco')}}</th>
                     <th></th>
-                    <th>@if(!$pedido->trashed())<a class="btn btn-primary mb-2" href="{{route('produto.create')}}#produtos">Pagar</a>@endif</th>
+                    <th>@if(!$pedido->trashed() and Auth::user()->tipo_perfil==3 and $pedido->item->count('id')>0)<a class="btn btn-primary mb-2" href="{{route('financeiro.entrada.index', [$pedido->remember_token])}}#pagamento">Pagar</a>@endif</th>
                     <th></th>
                   </tr>
                 </tfoot>

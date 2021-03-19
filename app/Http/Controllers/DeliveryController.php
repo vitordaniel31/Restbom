@@ -70,7 +70,18 @@ class DeliveryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $delivery = Delivery::find($id);
+        if ($delivery) {
+            if(!$delivery->user){
+                $delivery->update(['id_user'=>\Auth::user()->id]);
+                return redirect(route('pedido.delivery.index', [$delivery->pedido->id]).'#deliveries')->with('alert-success', 'Faça a entrega do pedido com segurança!');
+            }else{
+                return redirect(route('delivery.index').'#deliveries')->with('alert-primary', 'Delivery já está sendo feito por outro entregador!');
+            }
+            
+        }else{
+            return redirect(route('delivery.index').'#deliveries')->with('alert-primary', 'Delivert inexistente! Informe um delivery válido para conseguir fazer a entrega!');
+        }
     }
 
     /**

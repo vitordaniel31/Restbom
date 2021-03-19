@@ -37,7 +37,13 @@
                     <td><button onclick="window.location.href='{{route('pedido.item.index', [$delivery->pedido->remember_token])}}#itens'" title="Ver pedido" class="btn btn-secondary">Ver pedido</i></button></td>
                     <td>{{@$delivery->user->name}}</td>
                     <td>{{$delivery->status}}</td>
-                    <td>
+                    <td>@if(!$delivery->user and \Auth::user()->tipo_perfil==1)
+                        <form action="{{route('pedido.entregador.update', [$delivery->id])}}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('PUT')
+                            <button title="Fazer delivery" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">motorcycle</i></button>
+                        </form> 
+                      @endif
                     </td>
                  </tr>
                 @endforeach

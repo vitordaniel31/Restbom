@@ -48,7 +48,7 @@ class DespesaController extends Controller
             'data' => $request->data,
         ]);
 
-        return redirect(route('home').'#despesas')->with('alert-success', 'Despesa registrada com sucesso!');
+        return redirect(route('financeiro.index').'#despesas')->with('alert-success', 'Despesa registrada com sucesso!');
     }
 
     /**

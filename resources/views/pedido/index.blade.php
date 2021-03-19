@@ -47,8 +47,15 @@
                     <td>{{(new DateTime($pedido->created_at))->format('H:i:s d/m/Y')}}</td>
                     <td><button title="Ver pedido" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.item.index', [$pedido->remember_token])}}#itens'"><i style="color: #039be5" class="material-icons">visibility</i></button>
                       @if(!$pedido->trashed())
+                      @if($pedido->status==1 and $pedido->delivery)
+                      <form action="{{route('pedido.delivery.update', [$pedido->id])}}" method="POST" style="display: inline;">
+                          @csrf
+                          @method('PUT')
+                          <button title="Autorizar delivery" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">motorcycle</i></button>
+                      </form>
+                      @endif
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
-                      @if($pedido->status==1 or $pedido->status==3)
+                      @if($pedido->status==2 or ($pedido->status==3 and $pedido->delivery->status==2))
                       <button title="Pagar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('financeiro.entrada.index', [$pedido->remember_token])}}#pagamento'"><i style="color: #039be5" class="material-icons">payment</i></button>
                       @endif
                       <form action="{{route('pedido.destroy', [$pedido->id])}}" method="POST" style="display: inline;">
