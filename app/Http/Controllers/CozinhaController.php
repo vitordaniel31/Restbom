@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Estoque;
-use App\Models\Produto;
+use App\Models\ItemPedido;
 
-class EstoqueController extends Controller
+class CozinhaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,8 @@ class EstoqueController extends Controller
      */
     public function index()
     {
-        //
+        $itens = ItemPedido::where('status', 0)->get();
+        return view('cozinha.index')->with('itens', $itens);
     }
 
     /**
@@ -58,12 +58,7 @@ class EstoqueController extends Controller
      */
     public function edit($id)
     {
-        $produto = Produto::find($id);
-        if ($produto->estoque) {
-            return view('estoque.edit')->with('estoque', $estoque)->with('produto', $produto);
-        }else{
-            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Estoque inexistente! Informe um estoque válido para conseguir atualizar!');
-        }
+        //
     }
 
     /**
@@ -75,19 +70,17 @@ class EstoqueController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'quantidade' => 'required|integer',
-        ]);
-
-        $estoque = Estoque::find($id);
-
-        if ($estoque) {
-            $estoque->update([
-                'quantidade' =>  $request->quantidade,
-            ]);
-            return redirect(route('estoque.edit', $estoque->id_produto).'#estoque')->with('alert-success', 'Estoque atualizado com sucesso!');             
+        $item = ItemPedido::find($id);
+        if ($item) {
+            if($item->status == 0){
+                $item->update(['status'=>1]);
+                return redirect(route('cozinha.index').'#cozinha')->with('alert-success', 'Status do item atualizado com sucesso!');
+            }else{
+                return redirect(route('coziha.index').'#cozinha')->with('alert-primary', 'Esse item está com um status diferente de "Em preparo"');
+            }
+            
         }else{
-            return redirect(route('produto.index').'#produtos')->with('alert-primary', 'Estoque inexistente! Informe um estoque válido para conseguir atualizar!');
+            return redirect(route('cozinha.index').'#cozinha')->with('alert-primary', 'Item inexistente! Informe um item válido para atualizar seu status!');
         }
     }
 

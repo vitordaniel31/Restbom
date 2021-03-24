@@ -18,7 +18,7 @@
                 <img height="200px" width="200px"  src="{{route('pedido.qrcode', [$pedido->remember_token])}}"> <!--gerar qr code -->
               </div>
             </div>
-            @if(!$pedido->trashed())
+            @if(!$pedido->trashed() and $pedido->status<3)
             <form action="{{route('pedido.item.store', [$pedido->remember_token])}}" method="post">
                 @csrf
                 @method('PUT')
@@ -73,7 +73,7 @@
                   <tr>
                     <td>{{$item->produto->descricao}} @if($item->observacao) ({{$item->observacao}}) @endif</td>
                     <td>R${{$item->produto->preco}}</td>
-                    <td>@if((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))>=3600){{number_format(((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))/3600), 2, ',', '')}} horas @else {{number_format(((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))/60), 2, ',', '')}} minutos @endif</td>
+                    <td>@if($item->status == 0) @if((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))>=3600){{number_format(((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))/3600), 2, ',', '')}} horas @else {{number_format(((strtotime(date("Y-m-d H:i:s")) - strtotime($item->created_at))/60), 2, ',', '')}} minutos @endif @endif</td>
                     <td>@if($item->status==0) Em preparo @elseif($item->status==1) À servir @elseif($item->status==2) Servido @elseif($item->status==3) Entregue @endif</td>
                     <td>@if(Auth::check())
                         @if($item->status==1 and !$pedido->delivery)
@@ -84,7 +84,7 @@
                               </form>
                           @endif
                         @endif
-                      @if($item->status==0 or ($item->produto->tipo==2 and $item->status==1))
+                      @if($pedido->status==2 and ($item->status==0 or ($item->produto->tipo==2 and $item->status==1)))
                       <form action="{{route('pedido.item.destroy', [$item->id])}}" method="POST" style="display: inline;">
                               @csrf
                               @method('DELETE')

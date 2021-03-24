@@ -80,7 +80,7 @@ class DeliveryController extends Controller
             }
             
         }else{
-            return redirect(route('delivery.index').'#deliveries')->with('alert-primary', 'Delivert inexistente! Informe um delivery válido para conseguir fazer a entrega!');
+            return redirect(route('delivery.index').'#deliveries')->with('alert-primary', 'Delivery inexistente! Informe um delivery válido para conseguir fazer a entrega!');
         }
     }
 

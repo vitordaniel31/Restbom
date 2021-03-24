@@ -18,4 +18,9 @@ class Estoque extends Model
         'quantidade',
     ];
 
+    public function produto()
+    {
+        return $this->belongsTo(Produto::class, 'id_pedido');
+    }
+
 }

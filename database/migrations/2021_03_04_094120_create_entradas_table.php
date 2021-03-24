@@ -18,9 +18,7 @@ class CreateEntradasTable extends Migration
             $table->unsignedBigInteger('id_pedido');
             $table->foreign('id_pedido')->references('id')->on('pedidos');
             $table->decimal('total', 8, 2);
-            $table->decimal('pago', 8, 2);
-            $table->decimal('liquido', 8, 2);
-            $table->decimal('juros', 5, 2);
+            $table->decimal('recebido', 8, 2);
             $table->unsignedBigInteger('id_formapagamento');
             $table->foreign('id_formapagamento')->references('id')->on('formasdepagamento');
             $table->timestamps();

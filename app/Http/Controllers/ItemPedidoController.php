@@ -51,23 +51,27 @@ class ItemPedidoController extends Controller
         $produto = Produto::find($request->id_produto);
         $pedido = Pedido::where('remember_token', $token)->first();
 
-        if ($produto->tipo==1) {
-            $pedido->item()->create([
-                'id_produto' => $request->id_produto,
-                'observacao' => $request->descricao,
-                'status' => 0,
-            ]);    
-        }else{
-            $produto = Produto::find($request->id_produto);
-            if ($produto->estoque->quantidade<=0) {
-                return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-primary', 'Item fora de estoque!');
+        if($pedido->status<3){
+            if ($produto->tipo==1) {
+                $pedido->item()->create([
+                    'id_produto' => $request->id_produto,
+                    'observacao' => $request->descricao,
+                    'status' => 0,
+                ]);    
+            }else{
+                $produto = Produto::find($request->id_produto);
+                if ($produto->estoque->quantidade<=0) {
+                    return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-primary', 'Item fora de estoque!');
+                }
+                $pedido->item()->create([
+                    'id_produto' => $request->id_produto,
+                    'observacao' => $request->descricao,
+                    'status' => 1,
+                ]);
+                $produto->estoque()->update(['quantidade'=>$produto->estoque->quantidade -1]);
             }
-            $pedido->item()->create([
-                'id_produto' => $request->id_produto,
-                'observacao' => $request->descricao,
-                'status' => 1,
-            ]);
-            $produto->estoque()->update(['quantidade'=>$produto->estoque->quantidade -1]);
+        }else{
+            return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-danger', 'Pedido em delivery ou já finalizado!');
         }
 
         return redirect(route('pedido.item.index', [$pedido->remember_token]).'#itens')->with('alert-success', 'Item adicionado com sucesso!');
@@ -105,7 +109,7 @@ class ItemPedidoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $item = Item::find($id);
+        $item = ItemPedido::find($id);
         if ($item) {
             $pedido = Pedido::find($item->id_pedido);
             if($item->status==1 and !$pedido->delivery){

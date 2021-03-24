@@ -46,7 +46,7 @@
                       <label for="forma">Forma de pagamento</label>
                       <select name="forma" class="form-control browser-default custom-select" id="forma" required>
                         @foreach ($formas as $forma)
-                            <option value="{{$forma->id}}">{{$forma->descricao}} - R${{$produto->preco}}</option>
+                            <option value="{{$forma->id}}">{{$forma->descricao}}</option>
                           @endforeach    
                       </select>
                       @error('tipo')
@@ -54,50 +54,32 @@
                                   {{ $message }}
                               </div>
                       @enderror
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="name">Total</label>
-                      <textarea name="descricao" type="text" id="descricao" value="{{ old('descricao') }}" required autocomplete="descricao" autofocus class="form-control "></textarea>
-                      @error('descricao')
-                            <div class="alert alert-primary" role="alert">
-                                {{ $message }}
-                            </div>
-                      @enderror
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="name">Pago</label>
-                      <textarea name="descricao" type="text" id="descricao" value="{{ old('descricao') }}" required autocomplete="descricao" autofocus class="form-control "></textarea>
-                      @error('descricao')
-                            <div class="alert alert-primary" role="alert">
-                                {{ $message }}
-                            </div>
-                      @enderror
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="name">Líquido</label>
-                      <textarea name="descricao" type="text" id="descricao" value="{{ old('descricao') }}" required autocomplete="descricao" autofocus class="form-control "></textarea>
-                      @error('descricao')
-                            <div class="alert alert-primary" role="alert">
-                                {{ $message }}
-                            </div>
-                      @enderror
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="name">Juros</label>
-                      <textarea name="descricao" type="text" id="descricao" value="{{ old('descricao') }}" required autocomplete="descricao" autofocus class="form-control "></textarea>
-                      @error('descricao')
-                            <div class="alert alert-primary" role="alert">
-                                {{ $message }}
-                            </div>
-                      @enderror
-                    </div>
+                  </div>
                 </div>
                 <div class="row justify-content-center">
+                    <div class="col-md-6 form-group">
+                      <label for="total">Total (R$)</label>
+                      <input name="total" type="number" min="0" step="0.01" max="999999.99" id="preco" value="{{number_format($pedido->item->sum('produto.preco'), 2, '.', '')}}" autocomplete="total" autofocus class="form-control" disabled="">
+                      @error('total')
+                              <div class="alert alert-primary" role="alert">
+                                  {{ $message }}
+                              </div>
+                      @enderror
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="recebido">Valor recebido (R$)</label>
+                      <input name="recebido" type="number" min="0" step="0.01" max="999999.99" id="recebido" value="{{number_format($pedido->item->sum('produto.preco'), 2, '.', '')}}" required autocomplete="recebido" autofocus class="form-control ">
+                      @error('recebido')
+                              <div class="alert alert-primary" role="alert">
+                                  {{ $message }}
+                              </div>
+                      @enderror
+                    </div>
+                </div>
+               
+                <div class="row justify-content-center">
                     <div class="form-group">
-                      <input type="submit" value="Salvar" class="btn btn-primary">
+                      <input type="submit" value="Pagar" class="btn btn-primary">
                     </div>
                 </div>  
             </form>

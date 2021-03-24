@@ -38,7 +38,8 @@
                     <td>
                       @if(!$funcionario->trashed())
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('funcionario.edit', [$funcionario->id])}}#registro'"><i style="color: #039be5" class="material-icons">edit</i></button>
-                      @if($funcionario->tipo_perfil!='A')
+
+                      @if($funcionario->tipo_perfil!=1)
                       <form action="{{route('funcionario.destroy', [$funcionario->id])}}" method="POST" style="display: inline;">
                           @csrf
                           @method('DELETE')
@@ -47,7 +48,7 @@
                       @endif
                       @endif
 
-                      @if(($funcionario->tipo_perfil)!='A' and $funcionario->trashed())
+                      @if(($funcionario->tipo_perfil)!=1 and $funcionario->trashed())
                       <form action="{{route('funcionario.restore', [$funcionario->id])}}" method="POST" style="display: inline;">
                           @csrf
                           @method('PUT')

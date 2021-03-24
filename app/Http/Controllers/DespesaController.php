@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Despesa;
+use App\Models\Entrada;
 
 class DespesaController extends Controller
 {
@@ -14,8 +15,9 @@ class DespesaController extends Controller
      */
     public function index()
     {
+        $entradas = Entrada::all();
         $despesas = Despesa::all();
-        return view('financeiro.index')->with('despesas', $despesas);
+        return view('financeiro.index')->with('despesas', $despesas)->with('entradas', $entradas);
     }
 
     /**
@@ -42,7 +44,7 @@ class DespesaController extends Controller
             'data' => 'required|date',
         ]);
 
-        $produto = Despesa::create([
+        $despesa = Despesa::create([
             'descricao' => $request->descricao,
             'valor' => $request->valor,
             'data' => $request->data,

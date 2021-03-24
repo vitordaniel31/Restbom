@@ -4,12 +4,19 @@
   <section id='financeiro' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
       <div class="container">
 
+            @foreach (['primary', 'success'] as $msg)
+        @if(Session::has('alert-' . $msg))
+          <div class="alert alert-{{ $msg }}" role="alert">
+            {{ Session::get('alert-' . $msg) }}
+          </div>
+        @endif
+      @endforeach
+          
+        <div class="row">
+          <div class="col-md-6 table-responsive">
             <div class="row justify-content-center">
               <h1>Despesas</h1>
             </div>
-          
-        <div class="row">
-          <div class="col-md-12 table-responsive">
             <a class="btn btn-primary mb-2" href="{{route('financeiro.despesa.create')}}#saidas">Nova despesa</a>
               <table id="dataTable" class="table table-hover">
                 <thead>
@@ -35,6 +42,36 @@
                       </form>
         
                     </td>
+                 </tr>
+                @endforeach
+              </tr>
+            </tbody>
+            </table>
+          </div>
+
+          <div class="col-md-6 table-responsive">
+            <div class="row justify-content-center">
+              <h1>Entradas</h1>
+            </div>
+            <a class="btn btn-primary mb-3" href="{{route('pedido.index')}}#pedidos">Pedidos</a>
+              <table>
+                <thead>
+                  <tr bgcolor="#F2F2F2">
+                    <th>DESCRIÇÃO</th>
+                    <th>FORMA DE PAGAMENTO</th>
+                    <th>TOTAL (R$)</th>
+                    <th>VALOR RECEBIDO (R$)</th>
+                    <th>DATA</th>
+                  </tr>
+                </thead>
+              <tbody>
+                <tr>
+                @foreach ($entradas as $entrada)
+                    <td>{{$entrada->pedido->id}}</td>
+                    <td>{{$entrada->forma->descricao}}</td>
+                    <td>R$ {{$entrada->total}}</td>
+                    <td>R$ {{$entrada->recebido}}</td>
+                    <td>{{date('d/m/Y H:i:s'), strtotime('$entrada->created_at')}}</td>
                  </tr>
                 @endforeach
               </tr>

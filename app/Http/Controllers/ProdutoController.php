@@ -39,7 +39,7 @@ class ProdutoController extends Controller
     {
         $request->validate([
             'descricao' => 'required|string|max:255|unique:produtos',
-            'preco' => 'required|numeric',
+            'preco' => 'required|numeric|regex:/^\d{1,6}(\.\d{0,2})?$/',
             'tipo' => 'required|integer|in:1,2',
         ]);
 
@@ -50,7 +50,7 @@ class ProdutoController extends Controller
         ]);
 
         if ($request->tipo == 2) {
-            $estoque = Estoque::create([
+            $produto->estoque()->create([
                 'id_produto' => $produto->id,
                 'quantidade' => 0,
             ]); 
@@ -136,7 +136,7 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
         if ($produto) {
-            if ($produto->tipo_perfil == 2) {
+            if ($produto->tipo== 2) {
                 $estoque = Estoque::where('id_produto', $id);
                 $estoque->delete();
             }

@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-md-12 form-group">
                       <label for="name">Nome</label>
-                      <input value="{{$funcionario->name}}" name="name" type="text" id="name" value="{{ old('name') }}" required autocomplete="name" autofocus class="form-control ">
+                      <input value="{{$funcionario->name}}" name="name" type="text" id="name" required autocomplete="name" autofocus class="form-control ">
                         @error('name')
                             <div class="alert alert-primary" role="alert">
                                 {{ $message }}
@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-12 form-group">
                       <label for="name">Email</label>
-                      <input value="{{$funcionario->email}}" name="email" type="email" id="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control ">
+                      <input value="{{$funcionario->email}}" name="email" type="email" id="email" required autocomplete="email" autofocus class="form-control ">
                         @error('email')
                             <div class="alert alert-primary" role="alert">
                                 {{ $message }}

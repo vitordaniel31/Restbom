@@ -40,6 +40,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="{{route('home')}}">Home</a>
               </li>
+              @if(\Auth::user()->tipo_perfil==2)
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('cozinha.index')}}#cozinha">Cozinha</a>
+              </li>
+              @endif
               @if(\Auth::user()->tipo_perfil==1 or \Auth::user()->tipo_perfil==3)
               <li class="nav-item">
                 <a class="nav-link" href="{{route('delivery.index')}}#deliveries">Deliveries</a>

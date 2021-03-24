@@ -185,7 +185,10 @@ class PedidoController extends Controller
         $pedido = Pedido::find($id);
         if ($pedido) {
             foreach ($pedido->item as $item) {
-                $item->delete();
+                if($item->status==2 or ($item->produto->tipo==1 and $item->status==1)){
+                    return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Esse pedido já tem itens prontos ou servidos, portanto não pode sere cancelado!');
+                }
+                $item->update(['status'=>3]);
             }
             $pedido->delete();
             return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Pedido cancelado com sucesso!');
@@ -198,11 +201,11 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::find($id);
         if ($pedido) {
-            if($pedido->delivery){
+            if($pedido->delivery and $pedido->status==2){
                 $pedido->update(['status'=>3]);
                 return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Delivery do pedido autorizado!');
             }else{
-                return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido não possui delivery cadastrado!');
+                return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido não possui delivery cadastrado ou ainda não está pronto!');
             }
             
         }else{

@@ -15,9 +15,17 @@ class Entrada extends Model
     protected $fillable = [
         'id_pedido',
         'total',
-        'pago',
-        'liquido',
-        'juros',
+        'recebido',
         'id_formapagamento',
     ];
+
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class, 'id_pedido');
+    }
+
+    public function forma()
+    {
+        return $this->belongsTo(FormaPagamento::class, 'id_formapagamento')->withTrashed();
+    }
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\ItemPedidoController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\FormaPagamentoController;
 use App\Http\Controllers\EntradaController;
+use App\Http\Controllers\CozinhaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,8 +68,8 @@ Route::group(['prefix' => 'financeiro', 'middleware' => ['auth']], function(){
 	Route::delete('/formaPagamento/{id}', [FormaPagamentoController::class, 'destroy'])->name('financeiro.formaPagamento.destroy')->middleware('admin');
 	Route::put('/formaPagamento/{id}', [FormaPagamentoController::class, 'restore'])->name('financeiro.formaPagamento.restore')->middleware('admin');
 
-	Route::get('/pagamento/{token}', [EntradaController::class, 'index'])->name('financeiro.entrada.index');
-	Route::post('/pagamento/store/{token}', [EntradaController::class, 'store'])->name('financeiro.entrada.store');
+	Route::get('/pagamento/{token}', [EntradaController::class, 'index'])->name('financeiro.entrada.index')->middleware('delivery');
+	Route::post('/pagamento/store/{token}', [EntradaController::class, 'store'])->name('financeiro.entrada.store')->middleware('delivery');
 });
 
 Route::group(['prefix' => 'pedido', 'middleware' => ['auth']], function(){
@@ -91,4 +92,9 @@ Route::get('/pedido/{token}/qrcode', [PedidoController::class, 'show'])->name('p
 
 Route::group(['prefix' => 'delivery', 'middleware' => ['auth', 'delivery']], function(){
 	Route::get('/', [DeliveryController::class, 'index'])->name('delivery.index');
+});
+
+Route::group(['prefix' => 'cozinha', 'middleware' => ['auth', 'cozinha']], function(){
+	Route::get('/', [CozinhaController::class, 'index'])->name('cozinha.index');
+	Route::put('/update/{id}', [CozinhaController::class, 'update'])->name('cozinha.update');
 });

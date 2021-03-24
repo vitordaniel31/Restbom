@@ -19,6 +19,8 @@ class CreateFormasdepagamentoTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        \DB::unprepared("Insert into formasdepagamento (descricao, created_at, updated_at) values ('Dinheiro', NOW(), NOW());");
     }
 
     /**

@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        \DB::unprepared("Insert into users (name, email, tipo_perfil, password created_at, updated_at) values ('Admin', 'admin@admin.com', 1, '$2y$12$vJON2cCdfUKafuOm2ioz.eH5Y1kRFFNFNf.jV.PY6Eh8sqPrTuvKC', NOW(), NOW());");
     }
 
     /**

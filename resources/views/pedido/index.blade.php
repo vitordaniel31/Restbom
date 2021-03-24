@@ -55,7 +55,7 @@
                       </form>
                       @endif
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
-                      @if($pedido->status==2 or ($pedido->status==3 and $pedido->delivery->status==2))
+                      @if($pedido->status==2)
                       <button title="Pagar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('financeiro.entrada.index', [$pedido->remember_token])}}#pagamento'"><i style="color: #039be5" class="material-icons">payment</i></button>
                       @endif
                       <form action="{{route('pedido.destroy', [$pedido->id])}}" method="POST" style="display: inline;">
