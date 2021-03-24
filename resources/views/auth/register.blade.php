@@ -29,7 +29,6 @@
                     </div>
                 </div>
                 
-                <input type="hidden" name="funcao" value="Administrador">
                 <div class="row">
                     <div class="col-md-12 form-group">
                       <label for="name">Email</label>

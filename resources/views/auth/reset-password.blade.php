@@ -1,48 +1,73 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.update') }}">
-            @csrf
-
-            <!-- Password Reset Token -->
-            <input type="hidden" name="token" value="{{ $request->route('token') }}">
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus />
+@extends('layouts.design')
+@section('content')
+    <section id='alterar' class="section pt-5 top-slant-white2 relative-higher bottom-slant-gray">
+      <div class="container card">  
+        <div class="row">
+          <div class="col-lg-6 ">
+            <div class="row justify-content-center">
+              <a href="#home"><img width="250px" src="{{asset('images/logo.png')}}" class="img-fluid" alt="Imagem responsiva"></a>
             </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+          </div>
+          <div class="col-lg-6">
+            <div class="row justify-content-center">
+            <div class="col-md-8 text-center col-sm-12 ">
+                <h1 data-aos="fade-up">Altere sua senha</h1>
+              </div>
             </div>
+            <form action="{{ route('password.update') }}" method="post">
+                @csrf
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                    type="password"
-                                    name="password_confirmation" required />
-            </div>
+                @if(Session::has('status'))
+                  <div class="alert alert-success" role="alert">
+                    {{ Session::get('status') }}
+                  </div>
+                @endif
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="email">Email</label>
+                      <input name="email" type="email" id="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control ">
+                        @error('email')
+                            <div class="alert alert-primary" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Reset Password') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" name="password" required autocomplete="current-password" autofocus class="form-control ">
+                        @error('password')
+                        <div class="alert alert-primary" role="alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="password_confirm">Confirmar senha</label>
+                        <input type="password" id="password_confirm" name="password_confirmation" required autocomplete="new-password" autofocus class="form-control ">
+                    </div>
+                </div>
+             
+                <div class="row justify-content-center">
+                    <div class="form-group">
+                      <input type="submit" value="Enviar" class="btn btn-primary">
+                    </div>
+                </div>  
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  <script type="text/javascript">
+    window.location.href="#alterar";
+  </script>
+@endsection
+
