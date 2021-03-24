@@ -54,7 +54,9 @@
                           <button title="Autorizar delivery" class="btn btn-sm bg-transparent " type="submit" name="action"><i style="color: #039be5" class="material-icons">motorcycle</i></button>
                       </form>
                       @endif
+                      @if($pedido->status!=4)
                       <button title="Editar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('pedido.edit', [$pedido->id])}}#pedidos'"><i style="color: #039be5" class="material-icons">edit</i></button>
+                      @endif
                       @if($pedido->status==2)
                       <button title="Pagar" class="btn btn-sm bg-transparent " onclick="window.location.href='{{route('financeiro.entrada.index', [$pedido->remember_token])}}#pagamento'"><i style="color: #039be5" class="material-icons">payment</i></button>
                       @endif

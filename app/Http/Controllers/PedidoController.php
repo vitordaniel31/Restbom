@@ -27,7 +27,7 @@ class PedidoController extends Controller
                     $itens_servidos = $item->where('status', 2)->count('id');
                     if($item->where('status', 0)->count('id')>0) {
                         $pedido->update(['status'=>0]);
-                    }elseif($qtd_itens>0 and ($qtd_itens == $itens_servidos) and !$pedido->delivery){
+                    }elseif($qtd_itens>0 and ($qtd_itens == $itens_servidos) and !$pedido->delivery and $pedido->status!=4){
                         $pedido->update(['status'=>2]);
                     }
                 }
@@ -135,37 +135,41 @@ class PedidoController extends Controller
         $pedido = Pedido::find($id);
 
         if ($pedido) {
-            if (isset($request->delivery)) {
-                $pedido->update([
-                    'cliente' => $request->input('cliente', $pedido->cliente),
-                ]);
-                if (!$pedido->delivery) {
+            if($pedido->status!=4){
+                if (isset($request->delivery)) {
                     $pedido->update([
-                        'mesa'=>null,
+                        'cliente' => $request->input('cliente', $pedido->cliente),
                     ]);
-                    $pedido->delivery()->create([
-                        'endereco' => $request->endereco,
-                        'observacao' => $request->observacao,
-                    ]);
+                    if (!$pedido->delivery) {
+                        $pedido->update([
+                            'mesa'=>null,
+                        ]);
+                        $pedido->delivery()->create([
+                            'endereco' => $request->endereco,
+                            'observacao' => $request->observacao,
+                        ]);
+                    }else{
+                        $pedido->delivery()->update([
+                            'endereco' => $request->input('endereco', $pedido->delivery->endereco),
+                            'observacao' => $request->input('observacao', $pedido->delivery->observacao),
+                        ]);
+                    }
                 }else{
-                    $pedido->delivery()->update([
-                        'endereco' => $request->input('endereco', $pedido->delivery->endereco),
-                        'observacao' => $request->input('observacao', $pedido->delivery->observacao),
-                    ]);
+                    if(!$pedido->mesa){
+                        $pedido->update([
+                            'cliente' => $request->input('cliente', $pedido->cliente),
+                            'mesa' => $request->input('mesa', $pedido->mesa),
+                        ]);
+                        $pedido->delivery->delete();
+                    }else{
+                        $pedido->update([
+                            'cliente' => $request->input('cliente', $pedido->cliente),
+                            'mesa' => $request->input('mesa', $pedido->mesa),
+                        ]);
+                    }
                 }
             }else{
-                if(!$pedido->mesa){
-                    $pedido->update([
-                        'cliente' => $request->input('cliente', $pedido->cliente),
-                        'mesa' => $request->input('mesa', $pedido->mesa),
-                    ]);
-                    $pedido->delivery->delete();
-                }else{
-                    $pedido->update([
-                        'cliente' => $request->input('cliente', $pedido->cliente),
-                        'mesa' => $request->input('mesa', $pedido->mesa),
-                    ]);
-                }
+                return redirect(route('pedido.index').'#pedidos')->with('alert-primary', 'Pedido já finalizado!');
             }
            
             return redirect(route('pedido.index').'#pedidos')->with('alert-success', 'Os dados do pedido foram editados com sucesso!');
