@@ -55,6 +55,9 @@ class EntradaController extends Controller
                     'recebido' => $request->recebido,
                     'id_formapagamento' => $request->forma
                 ]);
+                if ($pedido->delivery) {
+                    $pedido->delivery()->update(['status'=>2]);
+                }
                 $pedido->update(['status' => 4]);
                 return redirect(route('financeiro.index').'#despesas')->with('alert-success', 'Pagamento de pedido registrado com sucesso!');
             }else{

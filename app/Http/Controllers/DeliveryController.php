@@ -73,8 +73,12 @@ class DeliveryController extends Controller
         $delivery = Delivery::find($id);
         if ($delivery) {
             if(!$delivery->user){
-                $delivery->update(['id_user'=>\Auth::user()->id]);
-                return redirect(route('pedido.delivery.index', [$delivery->pedido->id]).'#deliveries')->with('alert-success', 'Faça a entrega do pedido com segurança!');
+                if(\Auth::user()->tipo_perfil==1){
+                    $delivery->update(['id_user'=>\Auth::user()->id, 'status'=>1]);
+                    return redirect(route('pedido.delivery.index', [$delivery->pedido->id]).'#deliveries')->with('alert-success', 'Faça a entrega do pedido com segurança!');
+                }else{
+                    return redirect(route('delivery.index').'#deliveries')->with('alert-primary', 'Você não tem o tipo de perfil Delivery!');
+                }
             }else{
                 return redirect(route('delivery.index').'#deliveries')->with('alert-primary', 'Delivery já está sendo feito por outro entregador!');
             }

@@ -36,7 +36,10 @@
                     <td>{{$delivery->observacao}}</td>
                     <td><button onclick="window.location.href='{{route('pedido.item.index', [$delivery->pedido->remember_token])}}#itens'" title="Ver pedido" class="btn btn-secondary">Ver pedido</i></button></td>
                     <td>{{@$delivery->user->name}}</td>
-                    <td>{{$delivery->status}}</td>
+                    <td>@if($delivery->status==0) Aguardando
+                    @elseif($delivery->status==1) Em andamento
+                    @elseif($delivery->status==2) Finalizado
+                    @endif</td>
                     <td>@if(!$delivery->user and \Auth::user()->tipo_perfil==1)
                         <form action="{{route('pedido.entregador.update', [$delivery->id])}}" method="POST" style="display: inline;">
                             @csrf

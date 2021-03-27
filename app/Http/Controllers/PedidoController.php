@@ -18,17 +18,19 @@ class PedidoController extends Controller
     {
         $pedidos = Pedido::withTrashed()->get();
         foreach ($pedidos as $pedido) {
+            $qtd_itens = $pedido->item()->count('id');
+            $itens_prontos = $pedido->item()->where('status', 1)->count('id');
+            $itens_servidos = $pedido->item()->where('status', 2)->count('id');
             foreach ($pedido->item as $item) {
-                $qtd_itens = $item->count('id');
-                $itens_prontos = $item->where('status', 1)->count('id');
-                if ($qtd_itens>0 and $qtd_itens==$itens_prontos and $pedido->status<3) {
-                    $pedido->update(['status'=>1]);
-                }else{
-                    $itens_servidos = $item->where('status', 2)->count('id');
-                    if($item->where('status', 0)->count('id')>0) {
-                        $pedido->update(['status'=>0]);
-                    }elseif($qtd_itens>0 and ($qtd_itens == $itens_servidos) and !$pedido->delivery and $pedido->status!=4){
-                        $pedido->update(['status'=>2]);
+                if ($pedido->status !=4) {
+                    if($qtd_itens>0){
+                        if ($qtd_itens==$itens_prontos) {
+                            $pedido->update(['status'=>1]);
+                        }elseif($qtd_itens==$itens_servidos and !$pedido->delivery){
+                            $pedido->update(['status'=>2]);
+                        }else{  
+                            $pedido->update(['status'=>0]);
+                        }
                     }
                 }
             }
