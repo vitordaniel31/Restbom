@@ -26,18 +26,19 @@
 
 ## ⚙️ Funcionalidades
 
-- [x] O administrador do posto tem acesso ao seu posto virtual contendo:
-  - [x] Cadastro e visualização de combustíveis; 
-  - [x] Cadastro e visualização de bombas;
+- [x] O administrador do restaurante tem acesso ao seu dashboard contendo:
+  - [x] Cadastro e visualização de produtos; 
+  - [x] Cadastro e visualização de pedidos;
   - [x] Tabela de vendas;
+  - [x] Financeiro com cadastro de entradas e saídas;
   - [x] Com isso, ele poderá: 
-    - Gerenciar seu posto online;
-    - Não necessitará de frentistas.
+    - Gerenciar seu restaurante online;
+    - Gerar relatórios periódicos.
 
 
-- [x] Os usuários tem acesso a tela da bomba, onde podem:
-  - [x] Selecionar o combustível, a quantidade a ser abastecida e/ou o valor;
-  - [x] Realizar a sua compra e abastecer o seu veículo.
+- [x] Os clientes tem acesso a tela do seu pedido, onde podem:
+  - [x] Ver a ordem do seu pedido;
+  - [x] Adicionar e cancelar produtos.
 
 ---
 
